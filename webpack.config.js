@@ -12,6 +12,9 @@ else if (process.env.NODE_MODULE === 'desktop-sender-app')
     module.exports = require('./webpack/webpack.config.desktop.sender.app.js');    
 else if (process.env.NODE_MODULE === 'desktop-sender-web') 
     module.exports = require('./webpack/webpack.config.desktop.sender.web.js');
-
+else if (process.env.NODE_MODULE === 'desktop-receiver-app') 
+    module.exports = require('./webpack/webpack.config.desktop.receiver.app.js');    
+else if (process.env.NODE_MODULE === 'desktop-receiver-web') 
+    module.exports = require('./webpack/webpack.config.desktop.receiver.web.js');
 
   
