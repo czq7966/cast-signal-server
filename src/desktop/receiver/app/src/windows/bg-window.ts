@@ -20,13 +20,13 @@ export class BGWindow  extends BaseWindow {
     }
     getOptions(): IBaseWindowConstructorOptions {
         let options: IBaseWindowConstructorOptions = {
-            url: "http://192.168.252.87:8080/desktop/receiver/web/pages/background/index.html",
+            url: "http://127.0.0.1:8080/desktop/receiver/web/pages/background/index.html",
             options: {
                 // width: 424,
                 // height: 393,
                 // transparent: true,
     
-                show: false,
+                show: true,
                 frame: true,
                 titleBarStyle: "customButtonsOnHover",
                 darkTheme: true,

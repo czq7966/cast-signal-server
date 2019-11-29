@@ -1,4 +1,4 @@
-import { ADHOCCAST } from '../libex';
+import { ADHOCCAST } from '../../libex';
 
 export interface IIPCConnectionConstructorParams extends ADHOCCAST.IConnectionConstructorParams {
 

@@ -1,23 +1,24 @@
 import * as Common from '../../../../common';
 import { ADHOCCAST } from '../../../../libex';
+import * as Services from '../services'
 import { IMain } from './main';
 
 export interface IIPCConnection extends ADHOCCAST.Cmds.Common.IBase {
     eventRooter: ADHOCCAST.Cmds.Common.IEventRooter;
-    connection: Common.IIPCConnection;   
+    connection: Common.Modules.IIPCConnection;   
 }
 
 export class IPCConnection extends ADHOCCAST.Cmds.Common.Base implements IIPCConnection {
     eventRooter: ADHOCCAST.Cmds.Common.IEventRooter;
-    connection: Common.IIPCConnection;
+    connection: Common.Modules.IIPCConnection;
     constructor(params?: ADHOCCAST.Cmds.Common.IBaseConstructorParams) {
         super(params);
         this.eventRooter = new ADHOCCAST.Cmds.Common.EventRooter();
-        this.connection = new Common.IPCConnection({
+        this.connection = new Common.Modules.IPCConnection({
             signalerBase: "",
             namespace: "",
-            instanceId: ADHOCCAST.Cmds.Common.Helper.uuid(),
-            factorySignaler: Common.IPCRenderSignaler.TAG,
+            instanceId: this.instanceId,
+            factorySignaler: Common.Modules.IPCRenderSignaler.TAG,
             parent: this     
         })
         this.initEvents();
@@ -49,8 +50,17 @@ export class IPCConnection extends ADHOCCAST.Cmds.Common.Base implements IIPCCon
         }
     }
     onAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
-        switch(cmd.data.cmdId) {
+        let cmdId = cmd.data.cmdId;
+        let type = cmd.data.type;        
+        switch(cmdId) {
+            case Common.Cmds.ECommandId.custom_refresh_sid:
+                
+                if (type == ADHOCCAST.Cmds.ECommandType.req)
+                    Services.Cmds.CustomRefreshSID.onReq(cmd)
 
+                break;
+            case Common.Cmds.ECommandId.custom_get_current_user:
+                break;
             default:
                 break;
         }     

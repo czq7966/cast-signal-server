@@ -40,7 +40,7 @@ export class BaseWindow implements IBaseWindow {
     createWindow(options?: IBaseWindowConstructorOptions) {
         options = options || this.options;
         this.window = new electron.BrowserWindow(options.options);
-        (this.app.ipcConnection.signaler as Common.IIPCMainSignaler).addRenderWindow(this.window);
+        (this.app.ipcConnection.signaler as Common.Modules.IIPCMainSignaler).addRenderWindow(this.window);
         if (!!options.url) {
             this.window.loadURL(options.url);
         } else if (!!options.file) {
@@ -51,12 +51,12 @@ export class BaseWindow implements IBaseWindow {
             // Dereference the window object, usually you would store windows
             // in an array if your app supports multi windows, this is the time
             // when you should delete the corresponding element.
-            (this.app.ipcConnection.signaler as Common.IIPCMainSignaler).removeRenderWindow(this.window);            
+            (this.app.ipcConnection.signaler as Common.Modules.IIPCMainSignaler).removeRenderWindow(this.window);            
             this.window = null
         });        
     }
     destroyWindow() {
-        (this.app.ipcConnection.signaler as Common.IIPCMainSignaler).removeRenderWindow(this.window);
+        (this.app.ipcConnection.signaler as Common.Modules.IIPCMainSignaler).removeRenderWindow(this.window);
         this.window && this.window.destroy();
         delete this.window;
     }

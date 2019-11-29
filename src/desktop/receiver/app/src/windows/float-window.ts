@@ -24,7 +24,7 @@ export class FloatWindow  extends BaseWindow {
     }
     getOptions(): IBaseWindowConstructorOptions {
         let options: IBaseWindowConstructorOptions = {
-            url: "http://192.168.252.87:8080/desktop/receiver/web/pages/floating/index.html",
+            url: "http://127.0.0.1:8080/desktop/receiver/web/pages/floating/index.html",
             options: {
                 // width: 424,
                 // height: 393,

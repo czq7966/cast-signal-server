@@ -1,2 +1,3 @@
+import * as Cmds from './cmds'
 import * as Modules from './modules'
-export { Modules }
+export { Cmds, Modules }

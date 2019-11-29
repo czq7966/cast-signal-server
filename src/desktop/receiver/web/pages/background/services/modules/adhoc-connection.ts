@@ -11,7 +11,10 @@ export class AdhocConnection {
 
             default:
                 break;
-        }     
+        }    
+        if (cmd.data.type === ADHOCCAST.Dts.ECommandType.resp && cmd.data.sessionId ) {
+            cmd.data.sessionId = null;
+        }
         Modules.Main.getInstance<Modules.Main>().ipcConnection.connection.dispatcher.signaler.sendCommand(cmd.data);
         console.log("on_after_root", cmd.data.cmdId, cmd.data);        
     }

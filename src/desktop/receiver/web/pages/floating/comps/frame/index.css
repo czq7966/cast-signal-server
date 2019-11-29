@@ -1,0 +1,34 @@
+.comps-frame-div {
+    display: flex;
+    flex-direction: row;    
+
+    /* background-color: red; */
+    margin-top: 10px;    
+}
+
+.comps-frame-div-close {    
+    /* width: 0px; */
+    /* height: 50px; */
+    -webkit-app-region: no-drag;  
+}
+
+.comps-frame-div-close button{    
+    width: 40px;
+    height: 40px;
+
+    background-color: rgba(0, 0, 0, 0);
+    border-style: none;
+    background-repeat: no-repeat;
+    color: #F0682E;
+    outline: none;    
+}
+
+.comps-frame-div-close button:hover {
+    /* text-shadow: 0px 2px 3px yellow; */
+    /* background-color: red; */
+    /* color: #C94C1B; */
+    cursor: pointer;
+    /* border: green; */
+    border-width: 1px;
+    border-style: groove;
+  }

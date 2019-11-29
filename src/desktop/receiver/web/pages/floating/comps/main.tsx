@@ -1,6 +1,9 @@
 import React = require("react");
 import ReactDOM = require('react-dom');
 import './main.css'
+import { CompAvatars } from "./avatars";
+import { CompFrame } from "./frame";
+import { CompPanelID } from "./panel-id";
 
 export interface IMainProps {
 
@@ -43,11 +46,17 @@ export class Main extends React.Component<IMainProps, IMainState> {
                     <div className="comps-main-div-body-label-id" >
                         <span>Panel ID</span>
                     </div>
-                    <div className="comps-main-div-body-panel-id" ></div>
+                    <div className="comps-main-div-body-panel-id" >
+                        <img src="../../images/refresh_icon.svg" ></img>
+                        <CompPanelID></CompPanelID>                        
+                    </div>
                 
                 </div>
                 <div className="comps-main-div-footer">
-
+                    <div>
+                        <CompAvatars></CompAvatars>
+                    </div>
+                    <CompFrame></CompFrame>
                 </div>
             </div>
         )

@@ -6,19 +6,19 @@ import { ADHOCCAST } from '../../libex'
 
 export interface IApp {
     windows: {[name: string]: RenderWindows.IBaseWindow}
-    ipcConnection: Common.IPCConnection;
+    ipcConnection: Common.Modules.IPCConnection;
 }
 
 export class App implements IApp {
     windows: {[name: string]: RenderWindows.IBaseWindow}
-    ipcConnection: Common.IPCConnection;
+    ipcConnection: Common.Modules.IPCConnection;
     constructor() {
         this.windows = {};
-        this.ipcConnection = new Common.IPCConnection({
+        this.ipcConnection = new Common.Modules.IPCConnection({
             signalerBase: "",
             namespace: "",
             instanceId: ADHOCCAST.Cmds.Common.Helper.uuid(),
-            factorySignaler: Common.IPCMainSignaler.TAG
+            factorySignaler: Common.Modules.IPCMainSignaler.TAG
         })
         this.init();
     }

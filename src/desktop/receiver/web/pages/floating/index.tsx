@@ -1,4 +1,5 @@
 process.env.NODE_MODE = "development";
+window['IsNode'] = false;
 import React = require("react");
 import ReactDOM = require('react-dom');
 import * as Comps from './comps'
