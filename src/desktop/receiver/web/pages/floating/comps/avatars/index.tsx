@@ -1,45 +1,68 @@
 import React = require("react");
 import ReactDOM = require('react-dom');
+import * as PageCommon from '../../../common'
+import * as Common from '../../../../../common'
+import { ADHOCCAST } from '../../../../../common';
 import './index.css'
 
-export interface ICompAvatarsProps {
+export interface ICompAvatarsProps extends PageCommon.ICompBaseProps {
+
 
 }
-export interface ICompAvatarsState {
-
+export interface ICompAvatarsState extends PageCommon.ICompBaseState {
+    count: any;
 }
 
-export class CompAvatars extends React.Component<ICompAvatarsProps, ICompAvatarsState> {
+export class CompAvatars extends PageCommon.CompBase<ICompAvatarsProps, ICompAvatarsState> {
     constructor(props) {
         super(props);
-        this.init();
+        this.state = {
+            count: ""
+        }
+        this.setRooterEvent(null, this.onAfterRoot);
     }
-    destroy() {
-        this.unInit();
-    }
+
     componentDidMount() {
+        Common.Services.Cmds.CustomGetSendingUsers.req(this.props.instanceId);
+        super.componentDidMount();
     }
 
-    componentWillUnmount() {        
-        this.destroy();
-    }
-
-    init() {
-
-    }
-    unInit() {
-
+    destroy() {
+        this.resetRooterEvent();
+        super.destroy();
     }
 
 
     render() {
         return (
-            <div className="comps-avatars-div" >
-                {/* <img className="comps-avatars-div-icon"  src="../../images/avatars_icon.svg"></img> */}
-                <div className="comps-avatars-div-icon" style={{backgroundImage:"url('../../images/avatars_icon.svg')"}} ></div>
-                <div className="comps-avatars-div-bubble" style={{backgroundImage:"url('../../images/orange_bubble_icon.svg')"}} >33</div>
+            <div className={"comp-avatars-div"} >
+                <div className={"comp-avatars-div-icon"} style={{backgroundImage:"url('../../images/avatars_icon.svg')"}} ></div>
+                <div className={"comp-avatars-div-bubble"} style={{backgroundImage:"url('../../images/orange_bubble_icon.svg')"}} >
+                    {this.state.count}
+                </div>
             </div>
         )
     }
+
+    onAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
+        let cmdId = cmd.data.cmdId;
+        let type = cmd.data.type;        
+        switch(cmdId) {            
+            case Common.Cmds.ECommandId.custom_get_sendering_users:
+                if (type == ADHOCCAST.Cmds.ECommandType.resp) {
+                    let users: {[id: string]: ADHOCCAST.Cmds.IUser} = cmd.data.extra;
+                    let length = users ? Object.keys(users).length: 0;
+                    this.setState({
+                        count: length ? length: ""
+                    })
+                }
+                break;
+            case ADHOCCAST.Cmds.ECommandId.network_disconnect:
+                this.setState({count: ""});
+                break;
+            default:
+                break;
+        }     
+    }      
 
 }

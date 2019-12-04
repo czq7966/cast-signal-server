@@ -1,18 +1,20 @@
 import React = require("react");
 import ReactDOM = require('react-dom');
-import './main.css'
 import { CompAvatars } from "./avatars";
 import { CompFrame } from "./frame";
 import { CompPanelID } from "./panel-id";
+import * as Modules from '../modules'
+import * as PageCommon from '../../common'
+import './main.css'
 
-export interface IMainProps {
+export interface IMainProps extends PageCommon.ICompBaseProps {
 
 }
-export interface IMainState {
+export interface IMainState extends PageCommon.ICompBaseState {
 
 }
 
-export class Main extends React.Component<IMainProps, IMainState> {
+export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
     constructor(props) {
         super(props);
         this.init();
@@ -48,13 +50,13 @@ export class Main extends React.Component<IMainProps, IMainState> {
                     </div>
                     <div className="comps-main-div-body-panel-id" >
                         <img src="../../images/refresh_icon.svg" ></img>
-                        <CompPanelID></CompPanelID>                        
+                        <CompPanelID instanceId={this.props.instanceId} ></CompPanelID>                        
                     </div>
                 
                 </div>
                 <div className="comps-main-div-footer">
-                    <div>
-                        <CompAvatars></CompAvatars>
+                    <div className="comps-main-div-footer-avatars">
+                        <CompAvatars instanceId={this.props.instanceId}></CompAvatars>
                     </div>
                     <CompFrame></CompFrame>
                 </div>

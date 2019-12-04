@@ -1,4 +1,4 @@
-import { ADHOCCAST } from '../../libex';
+import { ADHOCCAST } from '../libex';
 
 export interface IIPCConnectionConstructorParams extends ADHOCCAST.IConnectionConstructorParams {
 
@@ -18,6 +18,7 @@ export class IPCConnection extends ADHOCCAST.Cmds.Common.Base {
         super(params);
         this.params = Object.assign({}, params);
         this.instanceId = this.instanceId || ADHOCCAST.Cmds.Common.Helper.uuid();
+
 
         this.signaler = ADHOCCAST.Network.SignalerFactory.create(this.params.factorySignaler);
         let pms: ADHOCCAST.Modules.Dispatchers.IDispatcherConstructorParams = {
@@ -39,10 +40,15 @@ export class IPCConnection extends ADHOCCAST.Cmds.Common.Base {
         super.destroy();
     }
     initEvents() {
+        // if (this.instanceSingle) {
+        //     ADHOCCAST.Connection.instances[this.instanceId] = this;
+        // }
 
     }
     unInitEvents() {
-
+        // if (this.instanceSingle) {
+        //     delete ADHOCCAST.Connection.instances[this.instanceId];
+        // }
     }
 
     login(user?: ADHOCCAST.Cmds.IUser, namespace?: string, signalerBase?: string): Promise<any> {

@@ -1,0 +1,9 @@
+.comp-panel-id-div {
+    display: flex;
+    flex-direction: row;    
+}
+
+.comp-panel-id-div span{
+    font-size: 75px;
+    font-weight: bold;
+}

@@ -1,7 +1,8 @@
 import * as Common from "../../../../common";
-import { ADHOCCAST } from '../../../../libex';
+import { ADHOCCAST } from "../../../../common";
 import { IPCConnection } from "./ipc-connection";
 import { AdhocConnection } from "./adhoc-connection";
+ADHOCCAST.Cmds.Common.Helper.Debug.enabled = true;
 
 export interface IMain extends ADHOCCAST.Cmds.Common.IBase {
     adhocConnection: AdhocConnection
@@ -27,12 +28,4 @@ export class Main  extends ADHOCCAST.Cmds.Common.Base implements IMain {
         delete this.ipcConnection;
         super.destroy();
     }
-
-    initEvents() {        
-        
-    }
-    unInitEvents() {
-
-    }
-
 }

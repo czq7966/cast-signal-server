@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { ADHOCCAST } from './../../libex/index';
+import { ADHOCCAST } from './../libex/index';
 
 export interface IIPCRenderSignaler extends ADHOCCAST.Network.ISignaler {
     ipcRenderer: Electron.IpcRenderer;
@@ -56,7 +56,6 @@ export class IPCRenderSignaler implements IIPCRenderSignaler {
 
     onMessage = (event, arg) => {
         this.eventEmitter.emit(ADHOCCAST.Cmds.CommandID, arg);
-        console.log('1111111111111111111');
     }
 
     onDisconnect = (reason) => {

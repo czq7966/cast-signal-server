@@ -1,7 +1,4 @@
-import * as Background from '../../background';
+import * as PageCommon from '../../common'
 
-export interface IIPCConnection extends Background.Modules.IIPCConnection {}
-
-export class IPCConnection extends Background.Modules.IPCConnection implements IIPCConnection {
- 
+export class IPCConnection extends PageCommon.IPCConnection  {
 }

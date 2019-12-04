@@ -1,4 +1,4 @@
-import { ADHOCCAST } from '../../../../libex';
+import { ADHOCCAST } from '../../../../common';
 import * as Services from '../services'
 
 export interface IAdhocConnection extends ADHOCCAST.Cmds.Common.IBase {
@@ -11,12 +11,16 @@ export class AdhocConnection extends ADHOCCAST.Cmds.Common.Base implements IAdho
     constructor(params?: ADHOCCAST.Cmds.Common.IBaseConstructorParams) {
         super(params);
         this.eventRooter = new ADHOCCAST.Cmds.Common.EventRooter();
-        this.connection = new ADHOCCAST.Connection({
+        let connParams: ADHOCCAST.IConnectionConstructorParams = {
             instanceId: this.instanceId,
-            signalerBase: "https://adhoc-cast-signaler-product.k8s.101.com",
-            namespace: "mdm",
+            // signalerBase: "https://adhoc-cast-signaler-product.k8s.101.com",
+            signalerBase: "https://mdm.hk.101.com:13670",
+            // signalerBase: "http://adhoc-cast-signaler.ws.101.com",            
+            namespace: "promethean",
             parent: this
-        });        
+        }
+
+        this.connection = ADHOCCAST.Connection.getInstance(connParams);
         this.initEvents();
     }
     destroy() {

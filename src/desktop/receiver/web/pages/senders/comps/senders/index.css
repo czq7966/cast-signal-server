@@ -1,0 +1,28 @@
+.comp-senders-div {
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: blue;
+}
+.comp-senders-div-header{
+    height: 34px;
+    background-color: teal;
+}
+
+.comp-senders-div-list{
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: red;
+}
+
+.comp-senders-div-footer{
+    height: 15px;
+    background-color: thistle;    
+
+}

@@ -2,7 +2,7 @@ global["IsNode"] = true;
 import electron = require('electron');
 import * as RenderWindows from "./windows"
 import * as Common from '../../common'
-import { ADHOCCAST } from '../../libex'
+import { ADHOCCAST } from '../../common'
 
 export interface IApp {
     windows: {[name: string]: RenderWindows.IBaseWindow}
@@ -56,7 +56,7 @@ export class App implements IApp {
 
     createWindows() {     
         this.createWindow(RenderWindows.FloatWindow);
-        // this.createWindow(RenderWindows.SendersWindow);
+        this.createWindow(RenderWindows.SendersWindow);
         this.createWindow(RenderWindows.BGWindow);
     }
 

@@ -14,6 +14,7 @@ export class SendersWindow  extends BaseWindow {
 
     init() {
         this.createWindow(this.getOptions());
+        this.window.maximize();
     }
     unInit() {
         this.destroyWindow();
@@ -27,11 +28,12 @@ export class SendersWindow  extends BaseWindow {
                 // transparent: true,
     
                 frame: true,
-                alwaysOnTop: true,
+                alwaysOnTop: false,
                 titleBarStyle: "customButtonsOnHover",
                 darkTheme: true,
                 autoHideMenuBar: true,
                 resizable: true,
+                
                 // fullscreen: true,
                 // useContentSize: true,
     

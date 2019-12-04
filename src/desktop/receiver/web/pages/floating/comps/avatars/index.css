@@ -1,6 +1,6 @@
-.comps-avatars-div {
-    width: 54px;
-    height: 46px;
+.comp-avatars-div {
+    width: 100%;
+    height: 100%;
     /* opacity: 0.8; */
     /* background-color: red; */
 
@@ -8,18 +8,20 @@
     flex-direction: row;    
 }
 
-.comps-avatars-div-icon {    
-    width: 21px;
-    height: 21px;
+.comp-avatars-div-icon {    
+    width: 39%;
+    height: 46%;
     margin-top: 22px;
     margin-left: 14px;
+    background-size: cover;
     /* align-self: stretch; */
     /* background-color: blue; */
 }
 
-.comps-avatars-div-bubble {    
-    width: 30px;
-    height: 18px;
+.comp-avatars-div-bubble {    
+    width: 55%;
+    height: 39%;
+    background-size: auto;
     /* background-color: yellow; */
     left:0; 
     top:0;

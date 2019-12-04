@@ -46,7 +46,6 @@ export class CompFrame extends React.Component<ICompFrameProps, ICompFrameState>
     }
 
     onBtnCloseClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        console.log('1111111')
         window.close();        
     }    
 

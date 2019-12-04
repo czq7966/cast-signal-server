@@ -4,13 +4,14 @@ import React = require("react");
 import ReactDOM = require('react-dom');
 import './index.css'
 import * as Comps from './comps'
+import * as Modules from './modules'
 
 
 function startRender() {
     let rootEl = document.getElementById('root');
     rootEl && 
     ReactDOM.render(
-        <Comps.Main></Comps.Main>
+        <Comps.Main instanceId={Modules.Main.getInstance<Modules.Main>().ipcConnection.instanceId}></Comps.Main>
     , rootEl);
 }
 

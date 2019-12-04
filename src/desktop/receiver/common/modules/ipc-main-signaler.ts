@@ -1,5 +1,5 @@
 import { EventEmitter } from 'events';
-import { ADHOCCAST } from '../../libex';
+import { ADHOCCAST } from '../libex';
 import electron = require('electron');
 
 export interface IIPCMainSignaler extends ADHOCCAST.Network.ISignaler {

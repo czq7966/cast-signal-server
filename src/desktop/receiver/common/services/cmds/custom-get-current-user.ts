@@ -1,4 +1,4 @@
-import { ADHOCCAST } from '../../../libex';
+import { ADHOCCAST } from '../../../common';
 import * as Cmds from '../../cmds'
 
 export class CustomGetCurrentUser {

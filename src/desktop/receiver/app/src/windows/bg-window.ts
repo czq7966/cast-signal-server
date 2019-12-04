@@ -1,6 +1,7 @@
 import path = require('path');
 import { BaseWindow, IBaseWindowConstructorOptions } from './base-window';
 import { IApp } from '../app';
+import { ADHOCCAST } from '../../../common'
 
 export class BGWindow  extends BaseWindow {
     constructor(app: IApp, options?: IBaseWindowConstructorOptions) {
@@ -14,8 +15,14 @@ export class BGWindow  extends BaseWindow {
 
     init() {
         this.createWindow(this.getOptions());
+        this.window.on('close', (ev: Electron.Event) => {
+            this.window.hide();
+            ev.preventDefault();
+        })        
+        this.app.ipcConnection.dispatcher.eventRooter.onAfterRoot.add(this.onAfterRoot);
     }
     unInit() {
+        this.app.ipcConnection.dispatcher.eventRooter.onAfterRoot.remove(this.onAfterRoot);
         this.destroyWindow();
     }
     getOptions(): IBaseWindowConstructorOptions {
@@ -49,5 +56,16 @@ export class BGWindow  extends BaseWindow {
         return options;
     }
     
+    onAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
+        let cmdId = cmd.data.cmdId;
+        let type = cmd.data.type;
+        switch(cmdId) {
+            case ADHOCCAST.Cmds.ECommandId.network_disconnect:
+                this.window.show();
+                break;
+            default:
+                break;
+        }     
+    }      
 
 }

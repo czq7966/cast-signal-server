@@ -1,7 +1,6 @@
-import * as Common from "../../../../common";
-import { ADHOCCAST } from '../../../../libex';
+import { ADHOCCAST } from "../../../../common";
 import { IPCConnection } from "./ipc-connection";
-ADHOCCAST.Cmds.Common.Helper.Debug.enabled = true;
+ADHOCCAST.Cmds.Common.Helper.Debug.enabled = false;
 
 export interface IMain extends ADHOCCAST.Cmds.Common.IBase {
     ipcConnection: IPCConnection    
