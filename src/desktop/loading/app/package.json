@@ -1,0 +1,22 @@
+{
+  "name": "desktop-loading",
+  "version": "0.0.1",
+  "description": "The launcher of web loading",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "CZQ",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^6.0.10",
+    "electron-rebuild": "^1.8.6",
+    "robotjs": "^0.5.1"
+  },
+  "pages": {
+    "loading": {
+      "homePage": "loading/web/index.html",
+      "preload": "preload.js"
+    }
+  }
+}

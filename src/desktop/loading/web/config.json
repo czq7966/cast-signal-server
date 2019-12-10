@@ -1,0 +1,18 @@
+{
+    "baseUrl": null,
+    "downloads": [
+        {
+            "source": "app/preload.js",
+            "target": "../../app_run/preload.js"
+        },
+        {
+            "source": "app/index.js",
+            "target": "../../app_run/index.js"
+        },
+        {
+            "source": "app/package.json",
+            "target": "../../app_run/package.json"
+        }
+    ],
+    "loadScripts":["../../app_run/index.js"]
+}

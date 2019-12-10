@@ -4,15 +4,16 @@ import * as Services from '../services';
 import { ADHOCCAST } from '../../../../common'
 
 import React = require("react");
-import Card from 'antd/lib/card'
-import 'antd/lib/card/style/index.css'
+import { Player } from './player';
+
+import './main.css';
 
 
 export interface IMainProps extends PageCommon.ICompBaseProps {
 
 }
 export interface IMainState extends PageCommon.ICompBaseState {
-    senders?: {[id: string]: ADHOCCAST.Cmds.IUser}
+    senders?: {[id: string]: ADHOCCAST.Cmds.IUser}        
 }
 
 export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
@@ -20,6 +21,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
     constructor(props) {
         super(props);
         this.moduleMain = Modules.Main.getInstance<Modules.IMain>();
+        this.state={};
         this.init();
     }
     destroy() {
@@ -28,38 +30,57 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         super.destroy();        
     }
     componentDidMount() {
+        super.componentDidMount();
+        window.addEventListener('resize', this.onWindowResize);
+        setTimeout(() => {
+            this.onWindowResize(null);                    
+        }, 100);
     }
+    onWindowResize(ev) {
+        let elems = document.getElementsByClassName('comp-main-player-div');
+        let count = elems.length;
+        if (elems.length > 0) {
+            let wc = Math.floor(Math.sqrt(count))
+            let hc = wc;
+            wc * hc < count ? wc++ : null;
+            wc * hc < count ? hc++ : null;
 
-    componentWillUnmount() {        
-        this.destroy();
+            let w = Math.floor(window.innerWidth / wc) - 1;
+            let h = Math.floor(window.innerHeight / hc) - 1;
+            for (let idx = 0; idx < elems.length; idx++) {
+                const elem = elems[idx] as HTMLElement;
+                elem.style.width = 100 / wc  + "%";
+                elem.style.height = h  + "px";                
+            }
+        }
     }
 
     init() {
         this.setRooterEvent(null, this.onIPCAfterRoot);
+        this.moduleMain.adhocConnection.eventRooter.onBeforeRoot.add(this.onAdhocBeforeRoot);
+        this.moduleMain.adhocConnection.eventRooter.onAfterRoot.add(this.onAdhocAfterRoot);
 
-        let sid = "783701";
-        this.moduleMain.adhocConnection.connection.retryLogin(
-            {
-                id: null,
-                sid: sid,
-                room: {
-                    id: "promethean_" + sid
-                }
-            }
-        )
+        this.moduleMain.adhocConnection.config.loginID = "783701";
+        Services.Modules.AdhocConnection.login(this.moduleMain.adhocConnection)
         .then(v => {
             // this.heartBeat();
-        });
-
-        
+        });        
     }
     unInit() {
+        this.moduleMain.adhocConnection.eventRooter.onBeforeRoot.remove(this.onAdhocBeforeRoot);
+        this.moduleMain.adhocConnection.eventRooter.onAfterRoot.remove(this.onAdhocAfterRoot);
         this.resetRooterEvent();
     }
 
     onIPCAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
         return Services.Comps.Main.on_ipc_after_root(this, cmd);
-    }      
+    }  
+    onAdhocBeforeRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
+        return Services.Comps.Main.on_adhoc_before_root(this, cmd);
+    }        
+    onAdhocAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
+        return Services.Comps.Main.on_adhoc_after_root(this, cmd);
+    }          
 
     heartBeat() {
         setTimeout(() => {
@@ -78,12 +99,27 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
 
 
     render() {
-        return (<div style={{ background: '#ECECEC', padding: '30px'  }}>
+        let players = [];
 
-                    <Card title="Card title" bodyStyle={{ border: "none", padding:"0px" }} >
-                        <div style={{ background: 'red', width: "100px", height: "100px" }} ></div>
-                    </Card>
+        if (this.state.senders) {
+            let keys = Object.keys(this.state.senders);
+
+            for (let idx = 0; idx < 7; idx++) {
+                keys = keys.concat(Object.keys(this.state.senders));
+            }
             
+            for (let idx = 0; idx < keys.length; idx++) {
+                const key = keys[idx];
+                let palyer = (
+                    <div className="comp-main-player-div" >
+                        <Player  key={idx} instanceId={this.props.instanceId} userId={key}></Player>
+                    </div>
+                )
+                players.push(palyer);                
+            }
+        }
+        return (<div className="comp-main-div" >
+            {players}
         </div>)   
     }    
 

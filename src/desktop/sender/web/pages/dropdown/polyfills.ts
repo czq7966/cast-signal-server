@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { HttpHelper } from "../../../../common/http-helper";
+import { HttpHelper } from "../../../../common/libex/http-helper";
 
 export namespace chrome {
     export namespace events {
@@ -95,7 +95,7 @@ export namespace chrome {
             return ;
         }
         export function getUILanguage(): string {
-            let remote: Electron.Remote =  mynode.electron['remote'];
+            let remote: Electron.Remote =  MyNode.electron['remote'];
             _currentLanguage = remote.app.getLocale()
             return _currentLanguage;
         }

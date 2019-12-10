@@ -1,5 +1,6 @@
 export interface IRequestOptions {
     args?:{[key: string]: any},
+    responseType?: XMLHttpRequestResponseType;
     onreadystatechange?: (this: XMLHttpRequest, ev: Event) => any,
     onabort?: (this: XMLHttpRequest, ev: Event) => any;
     onerror?: (this: XMLHttpRequest, ev: ProgressEvent) => any;
@@ -22,7 +23,9 @@ export interface IRequestOptions {
 
 
 export class HttpHelper {
-    public static initEvents(xhr: XMLHttpRequest, options:IRequestOptions ) {
+    public static initEvents(xhr: XMLHttpRequest, options:IRequestOptions ) {    
+        if (options.responseType)
+            xhr.responseType = options.responseType;
         if (options.onabort)
             xhr.onabort = options.onabort;
         if (options.onerror)

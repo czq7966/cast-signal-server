@@ -1,9 +1,8 @@
 import path = require('path');
 import { BaseWindow, IBaseWindowConstructorOptions } from './base-window';
 import { IApp } from '../app';
-import { BGWindow } from './bg-window';
 
-export class FloatWindow  extends BaseWindow {
+export class SendersWindow  extends BaseWindow {
     constructor(app: IApp, options?: IBaseWindowConstructorOptions) {
         super(app, options);
         this.init();
@@ -15,34 +14,29 @@ export class FloatWindow  extends BaseWindow {
 
     init() {
         this.createWindow(this.getOptions());
-        this.window.on('closed', () => {
-            this.app.windows[BGWindow.name].window.destroy();
-        })
+        this.window.maximize();
     }
     unInit() {
         this.destroyWindow();
     }
     getOptions(): IBaseWindowConstructorOptions {
         let options: IBaseWindowConstructorOptions = {
-            url: "http://127.0.0.1:8080/desktop/receiver/web/pages/floating/index.html",
+            url: "http://127.0.0.1:8080/desktop/receiver/web/pages/senders/index.html",
             options: {
                 // width: 424,
                 // height: 393,
-                alwaysOnTop: true,
-                // titleBarStyle: "customButtonsOnHover",
+                // transparent: true,
+    
+                frame: true,
+                alwaysOnTop: false,
+                titleBarStyle: "customButtonsOnHover",
                 darkTheme: true,
                 autoHideMenuBar: true,
-
+                resizable: true,
+                
                 // fullscreen: true,
                 // useContentSize: true,
-                maximizable: false,
-                minimizable: false,
-                resizable: false,
-                fullscreenable: false,
-                frame:false,
-                transparent: true,
-                hasShadow:false,
-
+    
                 
                 webPreferences: {
                     sandbox: false,
