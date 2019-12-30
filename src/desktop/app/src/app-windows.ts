@@ -1,4 +1,4 @@
-import * as windows from './windows'
+import * as windows from './windows/index'
 
 var AppWindows: {[name: string] : windows.IBaseWindowClass} = {
     "Receiver-BGWindow": windows.Receiver.BGWindow,

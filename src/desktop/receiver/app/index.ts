@@ -1,4 +1,4 @@
-import { App } from "./src/app";
+import { App } from "../../app/src/app";
+import { AppWindows } from './src/app-windows'
 
-
-new App();
+new App(AppWindows);

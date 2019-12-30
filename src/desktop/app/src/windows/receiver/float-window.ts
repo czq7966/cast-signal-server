@@ -1,7 +1,6 @@
 import path = require('path');
 import { BaseWindow, IBaseWindowConstructorOptions } from '../base-window';
 import { IApp } from '../../app';
-import { AppWindows } from '../../app-windows'
 import { BGWindow } from './bg-window';
 import { SendersWindow } from './senders-window';
 
@@ -59,8 +58,8 @@ export class FloatWindow  extends BaseWindow {
     }
 
     onClosed = () => {
-        Object.keys(AppWindows).forEach(key => {
-            let value = AppWindows[key];
+        Object.keys(this.app.appWindows).forEach(key => {
+            let value = this.app.appWindows[key];
             switch (value) {
                 case BGWindow:
                 case SendersWindow:

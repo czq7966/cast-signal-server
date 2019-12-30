@@ -2,10 +2,10 @@ global["IsNode"] = true;
 import electron = require('electron');
 import * as windows from "./windows"
 import * as Common from '../../common'
-import { AppWindows } from './app-windows'
 import { ADHOCCAST } from '../../common'
 
 export interface IApp {
+    appWindows: {[name: string]: windows.IBaseWindowClass}
     windows: {[name: string]: windows.IBaseWindow}
     ipcConnection: Common.Modules.IPCConnection;
     createWindows()
@@ -15,9 +15,11 @@ export interface IApp {
 }
 
 export class App implements IApp {
+    appWindows: {[name: string]: windows.IBaseWindowClass}
     windows: {[name: string]: windows.IBaseWindow}
     ipcConnection: Common.Modules.IPCConnection;
-    constructor() {
+    constructor(appWindows: {[name: string] : windows.IBaseWindowClass}) {
+        this.appWindows = appWindows;
         this.windows = {};
         this.ipcConnection = new Common.Modules.IPCConnection({
             signalerBase: "",
@@ -56,7 +58,7 @@ export class App implements IApp {
             this.createWindows()
         })
 
-        if(electron.app.isReady) {
+        if(electron.app.isReady()) {
             this.createWindows();
         }         
     }
@@ -65,8 +67,8 @@ export class App implements IApp {
     }
 
     createWindows() {     
-        Object.keys(AppWindows).forEach(name => {
-            let windowClass = AppWindows[name];
+        Object.keys(this.appWindows).forEach(name => {
+            let windowClass = this.appWindows[name];
             this.createWindow(name, windowClass);            
         })
         // this.createWindow(RenderWindows.FloatWindow);
@@ -75,8 +77,8 @@ export class App implements IApp {
     }
 
     destroyWindows() {
-        Object.keys(AppWindows).forEach(name => {
-            let windowClass = AppWindows[name];
+        Object.keys(this.appWindows).forEach(name => {
+            let windowClass = this.appWindows[name];
             this.destroyWindow(name);            
         })        
         // this.destroyWindow(RenderWindows.BGWindow);
