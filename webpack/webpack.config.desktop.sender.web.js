@@ -28,7 +28,7 @@ module.exports = env => {
                 NODE_ENV: "'" + node_env  + "'",
             }
         }),         
-        new CopyWebpackPlugin([
+        new CopyWebpackPlugin([            
             {
                 from: path.resolve(srcDir, 'index.html'),
                 to: 'index.html',
@@ -38,13 +38,21 @@ module.exports = env => {
                 to: 'pages/dropdown/index.html',
             },  
             {
+                from: path.resolve(resDir, 'manifest.json'),
+                to: 'manifest.json',
+            },             
+            {
                 from: path.resolve(resDir, 'images'),
                 to: 'images',
             },                
             {
                 from: path.resolve(resDir, '_locales'),
                 to: '_locales',
-            }                                  
+            },  
+            {
+                from: path.resolve(resDir, 'pages/libs'),
+                to: 'pages/libs',
+            }                                            
         ]),        
     )
 

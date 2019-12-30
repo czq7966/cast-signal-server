@@ -34,7 +34,8 @@
     "sfu": "npm run sfu:compile && npm run sfu:start",
     "clean": "rimraf dist",
     "compile": "npm run server:compile && npm run amd:compile  && npm run client:compile",
-    "build": "npm run server:build   && npm run amd:build    && npm run client:build",    
+    "build": "npm run server:build   && npm run amd:build    && npm run client:build",
+    "rebuild": "npm rebuild --runtime=electron --target=4.2.11 --disturl=https://atom.io/download/atom-shell --abi=64",
     "desktop:sender:app:clean": "rimraf ./dist/desktop/sender/app",
     "desktop:sender:app:compile": "npm run desktop:sender:app:clean && cross-env NODE_MODULE=desktop-sender-app webpack --env.cjs",
     "desktop:sender:app:dev": "npm run desktop:sender:app:clean && cross-env NODE_MODULE=desktop-sender-app webpack --env.cjs --env.nodevtool --progress --watch",
@@ -66,11 +67,11 @@
     "desktop:app:compile": "npm run desktop:app:clean && cross-env NODE_MODULE=desktop-app webpack --env.cjs",
     "desktop:app:dev": "npm run desktop:app:clean && cross-env NODE_MODULE=desktop-app webpack --env.cjs --env.nodevtool --progress --watch",
     "desktop:app:build": "npm run desktop:app:clean && cross-env NODE_MODULE=desktop-app webpack --env.cjs --env.production --progress",
-    "desktop:app:run": "electron ./dist/desktop/app",  
+    "desktop:app:run": "electron ./dist/desktop/app",
     "desktop:web:clean": "rimraf ./dist/desktop/web",
     "desktop:web:compile": "npm run desktop:web:clean && cross-env NODE_MODULE=desktop-web webpack --env.umd",
     "desktop:web:dev": "npm run desktop:web:clean && cross-env NODE_MODULE=desktop-web webpack --env.umd --env.nodevtool --progress --watch",
-    "desktop:web:build": "npm run desktop:web:clean && cross-env NODE_MODULE=desktop-web webpack --env.umd --env.production --progress"      
+    "desktop:web:build": "npm run desktop:web:clean && cross-env NODE_MODULE=desktop-web webpack --env.umd --env.production --progress"
   },
   "author": "",
   "license": "ISC",
@@ -88,7 +89,7 @@
     "copy-webpack-plugin": "4.6.0",
     "cross-env": "5.2.0",
     "css-loader": "1.0.1",
-    "electron": "4.2.11",
+    "electron": "^4.2.11",
     "http": "0.0.0",
     "react": "16.6.3",
     "react-dom": "16.6.3",
@@ -109,7 +110,7 @@
     "webrtc-adapter": "6.4.6"
   },
   "dependencies": {
-    "adhoc-cast-connection": "2.2.3",
+    "adhoc-cast-connection": "2.2.15",
     "es6-object-assign": "1.1.0",
     "express": "4.16.4",
     "fs": "0.0.1-security",

@@ -15,7 +15,7 @@
   },
   "pages": {
     "loading": {
-      "homePage": "loading/web/index.html",
+      "homePage": "http://127.0.0.1:8080/desktop/loading/web/index.html",
       "preload": "preload.js"
     }
   }

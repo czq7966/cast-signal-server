@@ -1,4 +1,4 @@
 export * from './base-window';
-export * from './bg-window';
-export * from './float-window';
-export * from './senders-window';
+import * as Receiver from './receiver'
+import * as Sender from './sender'
+export {Receiver, Sender}

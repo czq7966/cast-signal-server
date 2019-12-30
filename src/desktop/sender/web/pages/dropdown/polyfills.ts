@@ -1,5 +1,6 @@
 import { EventEmitter } from "events";
 import { HttpHelper } from "../../../../common/libex/http-helper";
+import manifest = require("../../../../../../../activ-cast/src/activ-cast/manifest.json");
 
 export namespace chrome {
     export namespace events {
@@ -282,7 +283,13 @@ export namespace chrome {
     export namespace idle {
         export class IdleStateChangedEvent extends chrome.events.Event<(newState: string) => void> { }    
         export var onStateChanged: IdleStateChangedEvent = new IdleStateChangedEvent();    
-    }    
+    }  
+    
+    export namespace app {
+        export function getDetails(): any {
+            return manifest;
+        }
+    }
 }
 
 window.chrome = chrome;

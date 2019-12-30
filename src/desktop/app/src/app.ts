@@ -1,16 +1,21 @@
 global["IsNode"] = true;
 import electron = require('electron');
-import * as RenderWindows from "./windows"
+import * as windows from "./windows"
 import * as Common from '../../common'
+import { AppWindows } from './app-windows'
 import { ADHOCCAST } from '../../common'
 
 export interface IApp {
-    windows: {[name: string]: RenderWindows.IBaseWindow}
+    windows: {[name: string]: windows.IBaseWindow}
     ipcConnection: Common.Modules.IPCConnection;
+    createWindows()
+    destroyWindows()
+    createWindow(name: string, iClass: windows.IBaseWindowClass)
+    destroyWindow(name: string) 
 }
 
 export class App implements IApp {
-    windows: {[name: string]: RenderWindows.IBaseWindow}
+    windows: {[name: string]: windows.IBaseWindow}
     ipcConnection: Common.Modules.IPCConnection;
     constructor() {
         this.windows = {};
@@ -60,34 +65,42 @@ export class App implements IApp {
     }
 
     createWindows() {     
-        this.createWindow(RenderWindows.FloatWindow);
-        this.createWindow(RenderWindows.SendersWindow);
-        this.createWindow(RenderWindows.BGWindow);
+        Object.keys(AppWindows).forEach(name => {
+            let windowClass = AppWindows[name];
+            this.createWindow(name, windowClass);            
+        })
+        // this.createWindow(RenderWindows.FloatWindow);
+        // this.createWindow(RenderWindows.SendersWindow);
+        // this.createWindow(RenderWindows.BGWindow);
     }
 
     destroyWindows() {
-        this.destroyWindow(RenderWindows.BGWindow);
-        this.destroyWindow(RenderWindows.FloatWindow);
-        this.destroyWindow(RenderWindows.SendersWindow);
+        Object.keys(AppWindows).forEach(name => {
+            let windowClass = AppWindows[name];
+            this.destroyWindow(name);            
+        })        
+        // this.destroyWindow(RenderWindows.BGWindow);
+        // this.destroyWindow(RenderWindows.FloatWindow);
+        // this.destroyWindow(RenderWindows.SendersWindow);
     }
 
-    createWindow(iClass: RenderWindows.IBaseWindowClass) {     
-        let window: RenderWindows.IBaseWindow;
-        window = this.windows[iClass.name];
+    createWindow(name: string, iClass: windows.IBaseWindowClass) {     
+        let window: windows.IBaseWindow;
+        window = this.windows[name];
         if (!window || !(window.window)) {
             window = new iClass(this) as any;
-            this.windows[iClass.name] = window;
+            this.windows[name] = window;
             window.window.on('closed', () => {
-                delete this.windows[iClass.name];
+                delete this.windows[name];
             })
         }
     }    
-    destroyWindow(iClass: RenderWindows.IBaseWindowClass) {
-        let window: RenderWindows.IBaseWindow;
-        window = this.windows[iClass.name];
+    destroyWindow(name: string) {
+        let window: windows.IBaseWindow;
+        window = this.windows[name];
         if (!!window ) {
             window.destroy();
-            delete this.windows[iClass.name];
+            delete this.windows[name];
         }
     }
 }

@@ -1,7 +1,9 @@
 import path = require('path');
-import { BaseWindow, IBaseWindowConstructorOptions } from './base-window';
-import { IApp } from '../app';
+import { BaseWindow, IBaseWindowConstructorOptions } from '../base-window';
+import { IApp } from '../../app';
+import { AppWindows } from '../../app-windows'
 import { BGWindow } from './bg-window';
+import { SendersWindow } from './senders-window';
 
 export class FloatWindow  extends BaseWindow {
     constructor(app: IApp, options?: IBaseWindowConstructorOptions) {
@@ -15,11 +17,10 @@ export class FloatWindow  extends BaseWindow {
 
     init() {
         this.createWindow(this.getOptions());
-        this.window.on('closed', () => {
-            this.app.windows[BGWindow.name].window.destroy();
-        })
+        this.window.on('closed', this.onClosed)
     }
     unInit() {
+        this.window.removeListener('closed', this.onClosed)
         this.destroyWindow();
     }
     getOptions(): IBaseWindowConstructorOptions {
@@ -55,5 +56,19 @@ export class FloatWindow  extends BaseWindow {
             }
         }
         return options;
+    }
+
+    onClosed = () => {
+        Object.keys(AppWindows).forEach(key => {
+            let value = AppWindows[key];
+            switch (value) {
+                case BGWindow:
+                case SendersWindow:
+                    this.app.destroyWindow(key);
+                    break;
+                default:
+                    break;
+            }
+        })
     }
 }

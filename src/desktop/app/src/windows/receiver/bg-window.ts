@@ -1,7 +1,7 @@
 import path = require('path');
-import { BaseWindow, IBaseWindowConstructorOptions } from './base-window';
-import { IApp } from '../app';
-import { ADHOCCAST } from '../../../common'
+import { BaseWindow, IBaseWindowConstructorOptions } from '../base-window';
+import { IApp } from '../../app';
+import { ADHOCCAST } from '../../../../common'
 
 export class BGWindow  extends BaseWindow {
     constructor(app: IApp, options?: IBaseWindowConstructorOptions) {

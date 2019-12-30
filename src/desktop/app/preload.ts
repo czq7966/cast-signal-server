@@ -1,13 +1,14 @@
 import electron = require('electron')
 import fs = require('fs')
 import path = require('path')
+import robotjs = require('robotjs')
 
 window['MyNode'] =  {
     electron: electron,
     process: process,
     fs: fs,
     path: path,
-    robotjs: null,
+    robotjs: robotjs,
     __dirname: __dirname,
     __filename: __filename,
     require: __non_webpack_require__

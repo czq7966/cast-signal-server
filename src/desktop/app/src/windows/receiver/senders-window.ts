@@ -1,6 +1,6 @@
 import path = require('path');
-import { BaseWindow, IBaseWindowConstructorOptions } from './base-window';
-import { IApp } from '../app';
+import { BaseWindow, IBaseWindowConstructorOptions } from '../base-window';
+import { IApp } from '../../app';
 
 export class SendersWindow  extends BaseWindow {
     constructor(app: IApp, options?: IBaseWindowConstructorOptions) {
