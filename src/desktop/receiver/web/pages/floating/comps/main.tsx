@@ -42,7 +42,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
             <div className="comps-main-div"  style={{backgroundImage:"url('../../images/black_container_80_percent.svg')"}}>
                 <div className="comps-main-div-body"  style={{backgroundImage:"url('../../images/white_container.svg')"}}>
                     <div className="comps-main-div-body-panel-name" >
-                        <input></input>
+                        <input placeholder="Enter Panel Name"></input>
                     </div>
                     <div className="comps-main-div-body-devider" ></div>
                     <div className="comps-main-div-body-label-id" >

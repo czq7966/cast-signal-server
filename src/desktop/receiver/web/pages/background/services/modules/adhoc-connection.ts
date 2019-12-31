@@ -95,12 +95,12 @@ export class AdhocConnection {
     static async login(adhocConnection: Modules.IAdhocConnection)  {
         return this.retryLogin(adhocConnection);
     }
-    static async retryLogin(adhocConnection: Modules.IAdhocConnection) {
+    static async retryLogin(adhocConnection: Modules.IAdhocConnection, loginUser?: ADHOCCAST.Cmds.IUser) {
         if (adhocConnection.connection == null) {
             let connParams: ADHOCCAST.IConnectionConstructorParams = {
                 instanceId: adhocConnection.instanceId,
-                signalerBase: adhocConnection.config.signalerBase,                
-                namespace: adhocConnection.config.namespace,
+                signalerBase: adhocConnection.config.items.signaler,
+                namespace: adhocConnection.config.items.organization,
                 parent: adhocConnection
             }
     
@@ -110,26 +110,37 @@ export class AdhocConnection {
     
         var conn = adhocConnection.connection;
         var _login = async () => {
-          let user: ADHOCCAST.Cmds.IUser = {
+          let user: ADHOCCAST.Cmds.IUser = loginUser || {
               id: null,
               sid: adhocConnection.config.getUserSid(),
-              nick: adhocConnection.config.user.nick,
+              nick: adhocConnection.config.items.user.nick,
               room: {
                   id: adhocConnection.config.getRoomId()
               }
           }
-          await conn.retryLogin(user, null, null, 5 * 1000);
+          return await conn.retryLogin(user, null, null, 5 * 1000);
         };
     
         if (conn.signaler.connected()) {
           try{
             conn.signaler.disconnect();
           }catch(e) {
-            await _login();
+            return await _login();
           }
         } else {
-          await _login();
+          return await _login();
         }
+    }
+    static async refreshLoginID(adhocConnection?: Modules.IAdhocConnection) {
+        adhocConnection = adhocConnection || new Modules.AdhocConnection({
+            instanceId: ADHOCCAST.Cmds.Common.Helper.uuid()
+        });
+        await this.retryLogin(adhocConnection, {id: null});
+        if (adhocConnection.connection.isLogin()) {
+            let loginID = adhocConnection.connection.rooms.getLoginRoom().me().item.sid;
+            adhocConnection.connection.disconnect();
+            return loginID;
+        } 
     }
     static getRecvingClientCount(adhocConnection: Modules.IAdhocConnection, userId: string): number {
         let count = 0;

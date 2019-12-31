@@ -71,9 +71,6 @@ export class App implements IApp {
             let windowClass = this.appWindows[name];
             this.createWindow(name, windowClass);            
         })
-        // this.createWindow(RenderWindows.FloatWindow);
-        // this.createWindow(RenderWindows.SendersWindow);
-        // this.createWindow(RenderWindows.BGWindow);
     }
 
     destroyWindows() {
@@ -81,9 +78,6 @@ export class App implements IApp {
             let windowClass = this.appWindows[name];
             this.destroyWindow(name);            
         })        
-        // this.destroyWindow(RenderWindows.BGWindow);
-        // this.destroyWindow(RenderWindows.FloatWindow);
-        // this.destroyWindow(RenderWindows.SendersWindow);
     }
 
     createWindow(name: string, iClass: windows.IBaseWindowClass) {     

@@ -1,9 +1,9 @@
 import { ADHOCCAST } from '../../../../common';
 import * as Services from '../services'
-import { Config } from './config';
+import { Config, IConfig } from './config';
 
 export interface IAdhocConnection extends ADHOCCAST.Cmds.Common.IBase {
-    config: Config
+    config: IConfig
     eventRooter: ADHOCCAST.Cmds.Common.IEventRooter;
     connection: ADHOCCAST.IConnection;
     sendingUsers: ADHOCCAST.Cmds.Common.Helper.KeyValue<ADHOCCAST.Cmds.IUser>;
@@ -13,7 +13,7 @@ export interface IAdhocConnection extends ADHOCCAST.Cmds.Common.IBase {
     initEvents();
 }
 export class AdhocConnection extends ADHOCCAST.Cmds.Common.Base implements IAdhocConnection {
-    config: Config
+    config: IConfig
     eventRooter: ADHOCCAST.Cmds.Common.IEventRooter;
     connection: ADHOCCAST.IConnection;
     sendingUsers: ADHOCCAST.Cmds.Common.Helper.KeyValue<ADHOCCAST.Cmds.IUser>;
