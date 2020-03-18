@@ -24,6 +24,7 @@ export class IPCConnection extends ADHOCCAST.Cmds.Common.Base {
         let pms: ADHOCCAST.Modules.Dispatchers.IDispatcherConstructorParams = {
             instanceId: this.instanceId,
             signaler: this.signaler,
+            isServer: false
         }
         this.dispatcher = ADHOCCAST.Modules.Dispatchers.Dispatcher.getInstance(pms) 
         

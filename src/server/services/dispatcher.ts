@@ -9,11 +9,17 @@ export interface IDispatcherConstructorParams extends Cmds.Common.IBaseConstruct
 }
 
 export class Dispatcher extends Cmds.Common.Base implements Cmds.Common.IDispatcher {
+    edCoder: Cmds.Common.IEDCoderClass
+    isServer: boolean   
     constructor(params: IDispatcherConstructorParams) {
         super(params);
+        this.isServer = false;
+        this.edCoder = Cmds.Common.EDCoder;
         this.initEvents();
     }
     destroy() {
+        delete this.edCoder;
+        delete this.isServer;
         this.unInitEvents();
         super.destroy();
     }
@@ -84,4 +90,4 @@ export class Dispatcher extends Cmds.Common.Base implements Cmds.Common.IDispatc
     }    
 }
 
-Cmds.Common.EDCoder.setDispatcher(Dispatcher as any, true)
+// Cmds.Common.EDCoder.setDispatcher(Dispatcher as any, true)
