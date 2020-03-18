@@ -1,21 +1,22 @@
 import { ADHOCCAST } from "../../../../common";
-import { IPCConnection } from "./ipc-connection";
+import { IIPCConnection } from "./ipc-connection";
 ADHOCCAST.Cmds.Common.Helper.Debug.enabled = false;
 
+export interface IMainConstructorParams extends ADHOCCAST.Cmds.Common.IBaseConstructorParams {
+    ipcConnection: IIPCConnection    
+}
+
 export interface IMain extends ADHOCCAST.Cmds.Common.IBase {
-    ipcConnection: IPCConnection    
+    ipcConnection: IIPCConnection    
 }
 
 export class Main  extends ADHOCCAST.Cmds.Common.Base implements IMain {
-    ipcConnection: IPCConnection
-    constructor() {
-        super();
-        this.ipcConnection = new IPCConnection({
-            instanceId: ADHOCCAST.Cmds.Common.Helper.uuid()
-        });
+    ipcConnection: IIPCConnection
+    constructor(params: IMainConstructorParams) {
+        super(params);
+        this.ipcConnection = params.ipcConnection;
     }
     destroy() {
-        this.ipcConnection.destroy();
         delete this.ipcConnection;
         super.destroy();
     }

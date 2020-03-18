@@ -7,8 +7,9 @@ export interface IIPCConnection extends PageCommon.IIPCConnection {
 }
 
 export class IPCConnection extends PageCommon.IPCConnection  {
-    constructor(params?: ADHOCCAST.Cmds.Common.IBaseConstructorParams) {
-        super(params);
+    constructor(params: ADHOCCAST.Cmds.Common.IBaseConstructorParams,
+                connParams: ADHOCCAST.IConnectionConstructorParams) {
+        super(params, connParams);
         this.initEvents();
     }
     destroy() {

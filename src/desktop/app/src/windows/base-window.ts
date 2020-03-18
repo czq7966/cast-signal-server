@@ -1,6 +1,7 @@
 import electron = require('electron');
 import { IApp } from '../app';
 import * as Common from '../../../common'
+import { IIPCMainSignaler } from '../../../common/modules/ipc-main-signaler';
 
 export interface IBaseWindowConstructorOptions extends electron.BrowserWindowConstructorOptions {
     url?: string;
@@ -40,23 +41,25 @@ export class BaseWindow implements IBaseWindow {
     createWindow(options?: IBaseWindowConstructorOptions) {
         options = options || this.options;
         this.window = new electron.BrowserWindow(options.options);
-        (this.app.ipcConnection.signaler as Common.Modules.IIPCMainSignaler).addRenderWindow(this.window);
+        (this.app.ipcConnection.signaler as IIPCMainSignaler).addRenderWindow(this.window);
         if (!!options.url) {
             this.window.loadURL(options.url);
         } else if (!!options.file) {
             this.window.loadFile(options.file);
         }     
-        
+        // this.window.on('close',  () => {
+        //     this.window.webContents.session.clearCache(()=>{})
+        // });       
         this.window.on('closed',  () => {
             // Dereference the window object, usually you would store windows
             // in an array if your app supports multi windows, this is the time
             // when you should delete the corresponding element.
-            (this.app.ipcConnection.signaler as Common.Modules.IIPCMainSignaler).removeRenderWindow(this.window);            
+            (this.app.ipcConnection.signaler as IIPCMainSignaler).removeRenderWindow(this.window);            
             this.window = null
         });        
     }
     destroyWindow() {
-        (this.app.ipcConnection.signaler as Common.Modules.IIPCMainSignaler).removeRenderWindow(this.window);
+        (this.app.ipcConnection.signaler as IIPCMainSignaler).removeRenderWindow(this.window);
         this.window && this.window.destroy();
         delete this.window;
     }

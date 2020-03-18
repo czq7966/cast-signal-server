@@ -60,7 +60,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         this.moduleMain.adhocConnection.eventRooter.onBeforeRoot.add(this.onAdhocBeforeRoot);
         this.moduleMain.adhocConnection.eventRooter.onAfterRoot.add(this.onAdhocAfterRoot);
 
-        this.moduleMain.adhocConnection.config.loginID = "783701";
+        this.moduleMain.adhocConnection.config.items.loginID = "783701";
         Services.Modules.AdhocConnection.login(this.moduleMain.adhocConnection)
         .then(v => {
             // this.heartBeat();
@@ -84,7 +84,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
 
     heartBeat() {
         setTimeout(() => {
-            let instanceId = Modules.Main.getInstance<Modules.IMain>().adhocConnection.connection.instanceId;
+            let instanceId = this.moduleMain.adhocConnection.connection.instanceId;
             ADHOCCAST.Cmds.CommandReq.req(instanceId, {'cmdId': 'adhoc-heart-beat'})
             .then(v => {
                 console.log('adhoc-heard-beat OK: ', new Date() );

@@ -52,7 +52,7 @@ export class Config implements IConfig {
 
     initItems(items: IConfigItems) {
         this.items = JSON.parse(JSON.stringify(defaultItems));
-        let sid = items.user.sid && items.user.sid || "";
+        let sid = items.user && items.user.sid && items.user.sid || "";
         let id = items.user && items.user.id || ADHOCCAST.Cmds.Common.Helper.uuid();
         // let id = ADHOCCAST.Cmds.Common.Helper.uuid();
         let nick = items.user && items.user.nick || "";

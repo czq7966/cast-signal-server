@@ -3,6 +3,7 @@ import electron = require('electron');
 import * as windows from "./windows"
 import * as Common from '../../common'
 import { ADHOCCAST } from '../../common'
+import { IPCMainSignaler } from '../../common/modules/ipc-main-signaler';
 
 export interface IApp {
     appWindows: {[name: string]: windows.IBaseWindowClass}
@@ -25,7 +26,7 @@ export class App implements IApp {
             signalerBase: "",
             namespace: "",
             instanceId: ADHOCCAST.Cmds.Common.Helper.uuid(),
-            factorySignaler: Common.Modules.IPCMainSignaler.TAG
+            factorySignaler: IPCMainSignaler.TAG
         })
         this.init();
     }
