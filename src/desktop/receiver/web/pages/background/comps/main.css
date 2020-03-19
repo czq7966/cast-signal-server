@@ -1,4 +1,4 @@
-.comp-main-div {
+.bg-comp-main-div {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -9,7 +9,7 @@
     border: none;
 }
 
-.comp-main-player-div {
+.bg-comp-main-player-div {
     /* flex-grow: 1; */
     background-color: red;
 

@@ -1,9 +1,9 @@
-.comp-panel-id-div {
+.flt-comp-panel-id-div {
     display: flex;
     flex-direction: row;    
 }
 
-.comp-panel-id-div span{
+.flt-comp-panel-id-div span{
     font-size: 35px;
     font-weight: bold;
 }

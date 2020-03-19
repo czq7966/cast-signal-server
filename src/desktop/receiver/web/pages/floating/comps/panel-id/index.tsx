@@ -33,7 +33,7 @@ export class CompPanelID extends PageCommon.CompBase<ICompPanelIDProps, ICompPan
 
     render() {
         return (
-            <div className={this.props.className || "comp-panel-id-div"} >
+            <div className={this.props.className || "flt-comp-panel-id-div"} >
                 <span>{this.state.panelID}</span>
             </div>
         )

@@ -4,7 +4,7 @@ html, body {
     margin: 0;    
 }
 
-.comp-main-div {
+.sds-comp-main-div {
     display: flex;
     flex-direction: column;
     
@@ -13,7 +13,7 @@ html, body {
     background: black
 }
 
-.comp-main-div-header {
+.sds-comp-main-div-header {
     display: flex;
     flex-direction: row;
 
@@ -21,26 +21,26 @@ html, body {
     background-color: blue;
 }
 
-.comp-main-div-header-left {
+.sds-comp-main-div-header-left {
     width: 25%;
     background-color: gray;
 
 }
-.comp-main-div-header-middle {
+.sds-comp-main-div-header-middle {
     width: 50%;
     background-color: green;
 }
-.comp-main-div-header-right {
+.sds-comp-main-div-header-right {
     width: 25%;
     background-color: greenyellow;
 }
 
-.comp-main-div-footer {
+.sds-comp-main-div-footer {
     height: 89px;
     background-color: red;
 }
 
-.comp-main-div-body {
+.sds-comp-main-div-body {
     flex-grow: 1;
 
     display: flex;

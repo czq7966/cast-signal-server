@@ -37,7 +37,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         }, 100);
     }
     onWindowResize(ev) {
-        let elems = document.getElementsByClassName('comp-main-player-div');
+        let elems = document.getElementsByClassName('bg-comp-main-player-div');
         let count = elems.length;
         if (elems.length > 0) {
             let wc = Math.floor(Math.sqrt(count))
@@ -111,14 +111,14 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
             for (let idx = 0; idx < keys.length; idx++) {
                 const key = keys[idx];
                 let palyer = (
-                    <div className="comp-main-player-div" >
+                    <div className="bg-comp-main-player-div" >
                         <Player  key={idx} instanceId={this.props.instanceId} userId={key}></Player>
                     </div>
                 )
                 players.push(palyer);                
             }
         }
-        return (<div className="comp-main-div" >
+        return (<div className="bg-comp-main-div" >
             {players}
         </div>)   
     }    

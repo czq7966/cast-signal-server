@@ -1,4 +1,4 @@
-.comp-senders-list-div {
+.sds-comp-senders-list-div {
     flex-grow: 1;
     flex-shrink: 1;
 
@@ -13,7 +13,7 @@
     background-color: chartreuse;
 }
 
-.comp-senders-list-col-div {
+.sds-comp-senders-list-col-div {
     flex-grow: 1;
     flex-shrink: 1;
 
@@ -25,7 +25,7 @@
     /* background: padding-box; */
 
 }
-.comp-senders-list-item-div {
+.sds-comp-senders-list-item-div {
     flex-grow: 1;
     flex-shrink: 1;
 

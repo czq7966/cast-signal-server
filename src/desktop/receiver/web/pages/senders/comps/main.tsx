@@ -39,7 +39,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
 
     }
     onWindowResize(ev) {
-        let divs = document.getElementsByClassName('comp-main-div');
+        let divs = document.getElementsByClassName('sds-comp-main-div');
         if (divs.length > 0) {
             let div = divs[0] as HTMLDivElement;
             div.style.height = window.innerHeight + "px";
@@ -48,25 +48,25 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
 
 
     render() {
-        return (<div className="comp-main-div" >
-            <div className="comp-main-div-header">
-                <div className="comp-main-div-header-left">
+        return (<div className="sds-comp-main-div" >
+            <div className="sds-comp-main-div-header">
+                <div className="sds-comp-main-div-header-left">
                     <div style={{height: "60px", width: "60px"}}>
                         <CompAvatars instanceId={this.props.instanceId} ></CompAvatars>                        
                     </div>                    
                 </div>
-                <div className="comp-main-div-header-middle">
+                <div className="sds-comp-main-div-header-middle">
                     <div>
                         <CompPanelID instanceId={this.props.instanceId}></CompPanelID>                        
                     </div>                    
                 </div>
-                <div className="comp-main-div-header-right"></div>
+                <div className="sds-comp-main-div-header-right"></div>
 
             </div>
-            <div className="comp-main-div-body">
+            <div className="sds-comp-main-div-body">
                 <CompSenders instanceId={this.props.instanceId}></CompSenders>
             </div>
-            <div className="comp-main-div-footer"></div>
+            <div className="sds-comp-main-div-footer"></div>
         </div>)
     }
 

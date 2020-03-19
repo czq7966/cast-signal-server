@@ -27,12 +27,12 @@ export class CompSenders extends PageCommon.CompBase<ICompSendersProps, ICompSen
 
     render() {
         return (
-            <div className={"comp-senders-div"} >
-                <div className="comp-senders-div-header"></div>
-                <div className="comp-senders-div-list">
+            <div className={"sds-comp-senders-div"} >
+                <div className="sds-comp-senders-div-header"></div>
+                <div className="sds-comp-senders-div-list">
                     <CompSendersList instanceId={this.props.instanceId} ></CompSendersList>
                 </div>
-                <div className="comp-senders-div-footer"></div>
+                <div className="sds-comp-senders-div-footer"></div>
             </div>
         )
     }

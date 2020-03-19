@@ -39,7 +39,7 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
             for (let idx = 0; idx < maxRow; idx++) {
                 let sender: ADHOCCAST.Cmds.IUser;
                 let senderUI = (
-                    <div key={idx} className="comp-senders-list-item-div" >
+                    <div key={idx} className="sds-comp-senders-list-item-div" >
 
                     </div>);
 
@@ -49,7 +49,7 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                     sender = this.state.senders[key];
                     if (sender) {
                         senderUI = (
-                            <div key={idx} className="comp-senders-list-item-div" >
+                            <div key={idx} className="sds-comp-senders-list-item-div" >
                                 <input type="checkbox" checked={sender.extra} />
                                 <span>{sender.nick ? sender.nick : sender.sid}</span>
                             </div>)
@@ -61,7 +61,7 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
             }
     
             cols.push(
-                <div key={col} className="comp-senders-list-col-div" >
+                <div key={col} className="sds-comp-senders-list-col-div" >
                     {items}
                 </div>
                 )            
@@ -69,7 +69,7 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
 
 
         return (
-            <div className={"comp-senders-list-div"} >
+            <div className={"sds-comp-senders-list-div"} >
                 {cols}
             </div>
         )

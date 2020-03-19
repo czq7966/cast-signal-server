@@ -1,4 +1,4 @@
-.comp-avatars-div {
+.flt-comp-avatars-div {
     width: 100%;
     height: 100%;
     /* opacity: 0.8; */
@@ -8,7 +8,7 @@
     flex-direction: row;    
 }
 
-.comp-avatars-div-icon {    
+.flt-comp-avatars-div-icon {    
     width: 39%;
     height: 46%;
     margin-top: 22px;
@@ -18,7 +18,7 @@
     /* background-color: blue; */
 }
 
-.comp-avatars-div-bubble {    
+.flt-comp-avatars-div-bubble {    
     width: 55%;
     height: 39%;
     background-size: auto;
