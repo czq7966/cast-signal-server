@@ -47,9 +47,9 @@ export class BaseWindow implements IBaseWindow {
         } else if (!!options.file) {
             this.window.loadFile(options.file);
         }     
-        // this.window.on('close',  () => {
-        //     this.window.webContents.session.clearCache(()=>{})
-        // });       
+        this.window.on('close',  () => {
+            this.window.webContents.session.clearCache(()=>{})
+        });       
         this.window.on('closed',  () => {
             // Dereference the window object, usually you would store windows
             // in an array if your app supports multi windows, this is the time

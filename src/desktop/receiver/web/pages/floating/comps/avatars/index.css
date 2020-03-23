@@ -20,8 +20,9 @@
 
 .flt-comp-avatars-div-bubble {    
     width: 55%;
-    height: 39%;
-    background-size: auto;
+    height: 30%;
+    /* background-size:100% 100%; */
+    background-repeat:no-repeat;
     /* background-color: yellow; */
     left:0; 
     top:0;

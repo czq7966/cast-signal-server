@@ -20,7 +20,8 @@ module.exports = env => {
     entry['pages/floating/index'] = path.resolve(srcDir, "pages/floating/index.tsx");
     entry['pages/background/index'] = path.resolve(srcDir, "pages/background/index.tsx");
     entry['pages/senders/index'] = path.resolve(srcDir, "pages/senders/index.tsx");
-    
+    entry['pages/single/index'] = path.resolve(srcDir, "pages/single/index.tsx");
+   
     optimization['minimizer'] = minimizer;  
 
     plugins.push(
@@ -45,7 +46,11 @@ module.exports = env => {
             {
                 from: path.resolve(srcDir, 'pages/senders/index.html'),
                 to: 'pages/senders/index.html',
-            },                          
+            },    
+            {
+                from: path.resolve(srcDir, 'pages/single/index.html'),
+                to: 'pages/single/index.html',
+            },                                  
             {
                 from: path.resolve(srcDir, 'images'),
                 to: 'images',

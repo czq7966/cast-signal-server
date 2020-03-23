@@ -6,24 +6,23 @@ import { IIPCBGSignaler } from './ipc-bg-signaler';
 export interface IIPCWinSignaler extends ADHOCCAST.Network.ISignaler {
     ipcBG: IIPCBGSignaler
     onMessage(event: {sender: any}, arg: any) 
+    setIPCBG(ipcBG: IIPCBGSignaler)
 }
 
 export class IPCWinSignaler implements IIPCWinSignaler {
-    static TAG = "desktop:receiver:single:ipc:bg:signaler";
+    static TAG = "desktop:receiver:single:ipc:win:signaler";
     eventEmitter: EventEmitter;
     ipcBG: IIPCBGSignaler;
     _url: string;
 
-    constructor(ipcBG: IIPCBGSignaler, url?: string) {
+    constructor(url?: string) {
         this.eventEmitter = new EventEmitter();
         this._url = url;   
-        this.ipcBG = ipcBG;
-        this.ipcBG.addIPCWinSignaler(this);
         this.initEvents();
     }
     destroy() {
         this.eventEmitter.removeAllListeners();    
-        this.ipcBG.removeIPCWinSignaler(this);    
+        this.ipcBG && this.ipcBG.removeIPCWinSignaler(this);    
         delete this.ipcBG;
         delete this.eventEmitter;
         this.unInitEvents();
@@ -42,6 +41,14 @@ export class IPCWinSignaler implements IIPCWinSignaler {
     }
     setUrl(value: string) {
         this._url = value;
+    }
+    getIPCBG() {
+        return this.ipcBG;
+    }
+    setIPCBG(ipcBG: IIPCBGSignaler) {
+        this.ipcBG && this.ipcBG.removeIPCWinSignaler(this);
+        this.ipcBG = ipcBG;
+        this.ipcBG && this.ipcBG.addIPCWinSignaler(this);
     }
 
     connected(): boolean {

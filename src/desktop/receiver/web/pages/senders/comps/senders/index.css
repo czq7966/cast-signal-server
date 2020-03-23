@@ -19,6 +19,8 @@
     flex-direction: column;
     height: 100%;
     background-color: red;
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 .sds-comp-senders-div-footer{

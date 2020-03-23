@@ -37,8 +37,11 @@ export class CompAvatars extends PageCommon.CompBase<ICompAvatarsProps, ICompAva
         return (
             <div className={"flt-comp-avatars-div"} >
                 <div className={"flt-comp-avatars-div-icon"} style={{backgroundImage:"url('../../images/avatars_icon.svg')"}} ></div>
-                <div className={"flt-comp-avatars-div-bubble"} style={{backgroundImage:"url('../../images/orange_bubble_icon.svg')"}} >
-                    {this.state.count}
+                <div className={"flt-comp-avatars-div-bubble"} 
+                        style={{
+                                backgroundImage:"url('../../images/orange_bubble_icon.svg')"
+                                }} >
+                    {this.state.count}123
                 </div>
             </div>
         )

@@ -1,0 +1,26 @@
+html, body {
+    /* font-family: 'Noto Sans', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+    font-family: 'Noto Sans', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 0;
+    margin: 0;    
+}
+
+body.index {
+    /* background-color: aqua; */
+}
+
+#bg-root {
+    width: 100%;    
+    height: 100%;
+    -webkit-app-region: drag;    
+    background-color: bisque;
+    color: #000;
+}
+
+#sds-root {
+    width: 100%;    
+    height: 100%;
+    -webkit-app-region: drag;    
+    background-color: bisque;
+    color: #000;
+}

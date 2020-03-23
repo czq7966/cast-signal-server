@@ -51,7 +51,10 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                         senderUI = (
                             <div key={idx} className="sds-comp-senders-list-item-div" >
                                 <input type="checkbox" checked={sender.extra} />
-                                <span>{sender.nick ? sender.nick : sender.sid}</span>
+                                <div>
+                                    <span>{sender.nick ? sender.nick : sender.sid}</span>
+                                </div>
+                                <button>X</button>
                             </div>)
 
                     }
