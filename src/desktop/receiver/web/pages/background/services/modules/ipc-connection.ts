@@ -19,6 +19,10 @@ export class IPCConnection {
             case Common.Cmds.ECommandId.custom_get_sendering_users:
                     if (type == ADHOCCAST.Cmds.ECommandType.req)
                         Services_Cmds.CustomGetSendingUsers.onReq(cmd)                
+                break;  
+            case Common.Cmds.ECommandId.custom_show_senders_video:
+                if (type == ADHOCCAST.Cmds.ECommandType.req)
+                    Services_Cmds.CustomShowSendersVideo.onReq(cmd, null)                
                 break;                
             default:
                 break;

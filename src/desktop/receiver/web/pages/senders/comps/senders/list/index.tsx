@@ -3,6 +3,7 @@ import * as Modules from '../../../modules';
 import { ADHOCCAST } from '../../../../../../common'
 import * as Common from '../../../../../../common'
 import * as PageCommon from '../../../../common'
+import * as Services from '../../../services'
 import './index.css'
 
 
@@ -49,7 +50,10 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                     sender = this.state.senders[key];
                     if (sender) {
                         senderUI = (
-                            <div key={idx} className="sds-comp-senders-list-item-div" >
+                            <div    key={key} 
+                                    className="sds-comp-senders-list-item-div" 
+                                    onClick={() => this.onSenderClick(key)}
+                                    >
                                 <input type="checkbox" checked={sender.extra} />
                                 <div>
                                     <span>{sender.nick ? sender.nick : sender.sid}</span>
@@ -107,4 +111,9 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
         }
     }
 
+    onSenderClick(senderId: string)  {
+        let senders = {};
+        senders[senderId] = this.state.senders[senderId];
+        Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, senders);
+    }
 }

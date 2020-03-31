@@ -60,7 +60,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         this.moduleMain.adhocConnection.eventRooter.onBeforeRoot.add(this.onAdhocBeforeRoot);
         this.moduleMain.adhocConnection.eventRooter.onAfterRoot.add(this.onAdhocAfterRoot);
 
-        // this.moduleMain.adhocConnection.config.items.loginID = "783701";
+        this.moduleMain.adhocConnection.config.items.loginID = "783701";
         Services.Modules.AdhocConnection.login(this.moduleMain.adhocConnection)
         .then(v => {
             // this.heartBeat();
@@ -104,9 +104,9 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         if (this.state.senders) {
             let keys = Object.keys(this.state.senders);
 
-            for (let idx = 0; idx < 7; idx++) {
-                keys = keys.concat(Object.keys(this.state.senders));
-            }
+            // for (let idx = 0; idx < 7; idx++) {
+            //     keys = keys.concat(Object.keys(this.state.senders));
+            // }
             
             for (let idx = 0; idx < keys.length; idx++) {
                 const key = keys[idx];

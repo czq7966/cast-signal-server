@@ -11,9 +11,9 @@ export interface IConfigItems {
 }
 
 var defaultItems: IConfigItems = {
-    signaler : "https://mdm.hk.101.com:13670",
+    // signaler : "https://mdm.hk.101.com:13670",
     // signalerBase: "http://adhoc-cast-signaler.ws.101.com",  
-    // signalerBase = "https://adhoc-cast-signaler.101.com";            
+    signaler: "https://adhoc-cast-signaler.101.com",            
     organization: "promethean",
     roomPrefix: "promethean_",
     loginID: "",

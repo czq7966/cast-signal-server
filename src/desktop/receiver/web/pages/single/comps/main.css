@@ -1,0 +1,15 @@
+.sg-comp-main-bg-root {
+    width: 100%;    
+    height: 100%;
+    -webkit-app-region: drag;    
+    background-color: bisque;
+    color: #000;
+}
+
+.sg-comp-main-sds-root {
+    width: 100%;    
+    height: 100%;
+    -webkit-app-region: drag;    
+    background-color: bisque;
+    color: #000;
+}

@@ -25,12 +25,31 @@ export class Main  extends ADHOCCAST.Cmds.Common.Base implements IMain {
     }
 
     destroy() {
+        this.unInit();
         delete this.adhocConnection;
         delete this.ipcConnection;
         super.destroy();
     }
     init() {
+        this.ipcConnection.eventRooter.onAfterRoot.add(this.onIPCAfterRoot);
+        this.adhocConnection.eventRooter.onBeforeRoot.add(this.onAdhocBeforeRoot);
+        this.adhocConnection.eventRooter.onAfterRoot.add(this.onAdhocAfterRoot);
+
         // this.adhocConnection.config.items.loginID = "783701";
         // Services.Modules.AdhocConnection.login(this.adhocConnection)
     }
+    unInit() {
+        this.ipcConnection.eventRooter.onAfterRoot.remove(this.onIPCAfterRoot);
+        this.adhocConnection.eventRooter.onBeforeRoot.remove(this.onAdhocBeforeRoot);
+        this.adhocConnection.eventRooter.onAfterRoot.remove(this.onAdhocAfterRoot);
+    }
+    onIPCAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
+        return Services.Modules.Main.on_ipc_after_root(this, cmd);
+    }  
+    onAdhocBeforeRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
+        return Services.Modules.Main.on_adhoc_before_root(this, cmd);
+    }        
+    onAdhocAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
+        return Services.Modules.Main.on_adhoc_after_root(this, cmd);
+    }  
 }
