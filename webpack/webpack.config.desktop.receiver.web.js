@@ -96,9 +96,22 @@ module.exports = env => {
                 },
                 {
                     test: /\.css$/,
-                    loader: "style-loader!css-loader",
+                    use: [ 
+                        {
+                            loader: "style-loader"
+                        }, 
+                        {
+                            loader: "css-loader",
+                            options: {url: false}
+                           
+
+                        }
+                    ]
+
+                    // loader: "style-loader!css-loader"
+                    // loader: "style-loader",
                     // exclude: /node_modules/
-                }                
+                }               
             ]
         },
         plugins: plugins,
@@ -111,7 +124,7 @@ module.exports = env => {
                 'path': 'path',
                 'http': 'http',
                 'https': 'https',
-                'electron': 'electron'                
+                'electron': 'electron'     
             }
 
         ],

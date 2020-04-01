@@ -66,7 +66,28 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
             <div className="sds-comp-main-div-body">
                 <CompSenders instanceId={this.props.instanceId}></CompSenders>
             </div>
-            <div className="sds-comp-main-div-footer"></div>
+            <div className="sds-comp-main-div-footer">
+                <div  className="sds-comp-main-div-footer-left">
+                    <div className="sds-comp-main-div-footer-left-img"></div>
+                    <span>ScreenShare</span>
+
+                </div>
+                <div  className="sds-comp-main-div-footer-middle">
+                    <div className="sds-comp-main-div-footer-middle-select-div">
+                           <span>0 seleted</span>
+                           <button
+                           >x</button>
+                       </div>
+                    <div>
+                        <button className="sds-comp-main-div-footer-middle-share-button"></button>
+                    </div>
+
+                </div>
+                <div   className="sds-comp-main-div-footer-right">
+                    <span>share.myPromethean.com</span>
+
+                </div>
+            </div>
         </div>)
     }
 

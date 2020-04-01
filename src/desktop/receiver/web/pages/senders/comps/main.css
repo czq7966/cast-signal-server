@@ -24,8 +24,11 @@ html, body {
 .sds-comp-main-div-header-left {
     width: 25%;
     background-color: gray;
-
 }
+/* .sds-comp-main-div-header-left img{
+    
+} */
+
 .sds-comp-main-div-header-middle {
     width: 50%;
     background-color: green;
@@ -36,8 +39,62 @@ html, body {
 }
 
 .sds-comp-main-div-footer {
-    height: 20px;
+    display: flex;
+    align-items: center;
+    height: 89px;
     background-color: red;
+}
+.sds-comp-main-div-footer-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 22px;
+}
+.sds-comp-main-div-footer-left-img {
+    height: 53px;
+    width: 53px;
+    background: transparent url('../../images/screenshare.svg') 0% 0% no-repeat padding-box;
+    /* src: url('../../images/screenshare.svg'); */
+}
+
+.sds-comp-main-div-footer-middle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.sds-comp-main-div-footer-middle-select-div {
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    width: 120px;
+    height: 32px;
+    margin-left: 5px;
+    margin-right: 5px;    
+    background: transparent url('../../images/Rectangle 1110.svg') 0% 0% no-repeat padding-box;
+                       
+}
+.sds-comp-main-div-footer-middle-select-div button{
+    width: 10px;
+    height: 10px;
+    margin-left: auto;
+    margin-right: 10px;
+    border: 0px;
+    background: transparent url('../../images/Symbol 130 – 2.svg') 0% 0% no-repeat padding-box;
+}
+.sds-comp-main-div-footer-middle-share-button {
+    width: 78px;
+    height: 34px;
+    border: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+    background: transparent url('../../images/active_btn.svg') 0% 0% no-repeat padding-box;
+}
+
+.sds-comp-main-div-footer-right {
+    margin-left: auto;
+    font-size: 22px;
 }
 
 .sds-comp-main-div-body {

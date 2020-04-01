@@ -33,7 +33,12 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
     render() {
         let cols = [];
         let maxCol = 3;
-        let maxRow = 13;
+        let maxRow = 10;
+        this.state.senders["123"] = {
+            id: "123",
+            sid: "123",
+            nick: "nicknicknicknick"
+        }
         let ids = Object.keys(this.state.senders);
         for (let col = 0; col < maxCol; col++) {
             let items = [];
@@ -41,6 +46,15 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                 let sender: ADHOCCAST.Cmds.IUser;
                 let senderUI = (
                     <div key={idx} className="sds-comp-senders-list-item-div" >
+                                <div className="sds-comp-senders-list-item-check-div">
+                                    <input type="checkbox"  />
+                                </div>
+                                <div className="sds-comp-senders-list-item-nick-div" >
+                                    ............................................................
+                                </div>
+                                <div  className="sds-comp-senders-list-item-close-div">
+                                    <button style={{visibility:"hidden"}}>X</button>
+                                </div>
 
                     </div>);
 
@@ -51,14 +65,18 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                     if (sender) {
                         senderUI = (
                             <div    key={key} 
-                                    className="sds-comp-senders-list-item-div" 
-                                    onClick={() => this.onSenderClick(key)}
+                                    className="sds-comp-senders-list-item-div"                                     
                                     >
-                                <input type="checkbox" checked={sender.extra} />
-                                <div>
-                                    <span>{sender.nick ? sender.nick : sender.sid}</span>
+                                <div className="sds-comp-senders-list-item-check-div">
+                                    <input type="checkbox" checked={sender.extra} />
                                 </div>
-                                <button>X</button>
+                                <div className="sds-comp-senders-list-item-nick-div" 
+                                     onClick={() => this.onSenderClick(key)}>
+                                    {sender.nick ? sender.nick : sender.sid}
+                                </div>
+                                <div  className="sds-comp-senders-list-item-close-div">
+                                    <button>X</button>
+                                </div>
                             </div>)
 
                     }
