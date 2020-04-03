@@ -6,8 +6,12 @@ import * as PageCommon from '../../../../common'
 import * as Services from '../../../services'
 import './index.css'
 
+export interface ISenderUserExtra {
+    selected: boolean
+}
 
 export interface ICompSendersListProps extends PageCommon.ICompBaseProps {
+    onSelectSenders?: (senders: {[id: string]: ADHOCCAST.Cmds.IUser}) => {}
 }
 export interface ICompSendersListState extends PageCommon.ICompBaseState {
     senders: {[id: string]: ADHOCCAST.Cmds.IUser};
@@ -18,8 +22,19 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
         super(props);
         this.state = {
             senders: {}
-
         }
+        // this.state.senders["1"] = {
+        //     id: "1",
+        //     sid: "1",
+        //     nick: "1111111",
+        //     extra: {selected: false}
+        // }
+        // this.state.senders["2"] = {
+        //     id: "2",
+        //     sid: "2",
+        //     nick: "222222",
+        //     extra: {selected: true}
+        // }
         this.setRooterEvent(null, this.onAfterRoot);
     }
     destroy() {
@@ -29,16 +44,16 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
     componentDidMount() {
         super.componentDidMount();
     }
+    setState(state: ICompSendersListState) {
+        super.setState(state);
+        this.trigSelectSendersEvent(state.senders);      
+    }
 
     render() {
         let cols = [];
         let maxCol = 3;
         let maxRow = 10;
-        this.state.senders["123"] = {
-            id: "123",
-            sid: "123",
-            nick: "nicknicknicknick"
-        }
+
         let ids = Object.keys(this.state.senders);
         for (let col = 0; col < maxCol; col++) {
             let items = [];
@@ -47,10 +62,10 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                 let senderUI = (
                     <div key={idx} className="sds-comp-senders-list-item-div" >
                                 <div className="sds-comp-senders-list-item-check-div">
-                                    <input type="checkbox"  />
+                                    <input type="checkbox" style={{visibility:"hidden"}}  />
                                 </div>
                                 <div className="sds-comp-senders-list-item-nick-div" >
-                                    ............................................................
+                                    <span></span>
                                 </div>
                                 <div  className="sds-comp-senders-list-item-close-div">
                                     <button style={{visibility:"hidden"}}>X</button>
@@ -64,11 +79,10 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                     sender = this.state.senders[key];
                     if (sender) {
                         senderUI = (
-                            <div    key={key} 
-                                    className="sds-comp-senders-list-item-div"                                     
-                                    >
+                            <div key={key} className="sds-comp-senders-list-item-div" >
                                 <div className="sds-comp-senders-list-item-check-div">
-                                    <input type="checkbox" checked={sender.extra} />
+                                    <input type="checkbox" checked={sender.extra.selected}
+                                        onClick={() => this.onSenderSelect(key)} />
                                 </div>
                                 <div className="sds-comp-senders-list-item-nick-div" 
                                      onClick={() => this.onSenderClick(key)}>
@@ -107,6 +121,8 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
         switch(cmdId) {
             case Common.Cmds.ECommandId.custom_get_sendering_users:
                 this.on_custom_get_sendering_users(cmd);
+            case Common.Cmds.ECommandId.custom_select_senders:
+                this.on_custom_select_senders(cmd);
                 break;
             default:
                 break;
@@ -117,14 +133,37 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
         if (cmd.data.type == ADHOCCAST.Cmds.ECommandType.resp) {
             let users = cmd.data.extra as {[id: string]: ADHOCCAST.Cmds.IUser};
             if (users) {
+                users = JSON.parse(JSON.stringify(users));
+                let senders = this.state.senders;
                 Object.keys(users).forEach(key => {
                     let user = users[key];
-                    let sender = this.state.senders[key];
-                    user.extra = sender ? sender.extra : false;
+                    let sender = senders[key];
+                    user.extra = sender ? sender.extra : {selected: false};
                 })
             }
             this.setState({
                 senders: users ? users : {}
+            });
+            // this.setState({
+            //     senders: this.state.senders
+            // });
+        }
+    }
+
+    on_custom_select_senders(cmd: ADHOCCAST.Cmds.Common.ICommand) {
+        if (cmd.data.type == ADHOCCAST.Cmds.ECommandType.req) {
+            let users = cmd.data.extra as {[id: string]: ADHOCCAST.Cmds.IUser};
+            if (users) {
+                users = JSON.parse(JSON.stringify(users));
+                let senders = this.state.senders;
+                Object.keys(senders).forEach(key => {
+                    let user = users[key];
+                    let sender = senders[key];
+                    sender.extra = user && user.extra ? user.extra : sender.extra;
+                })
+            }
+            this.setState({
+                senders: this.state.senders
             });
         }
     }
@@ -133,5 +172,23 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
         let senders = {};
         senders[senderId] = this.state.senders[senderId];
         Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, senders);
+    }
+    onSenderSelect(senderId: string)  {
+        let sender = this.state.senders[senderId];
+        sender.extra.selected = !sender.extra.selected;
+        this.setState({
+            senders: this.state.senders
+        })
+    }
+    trigSelectSendersEvent(senders: {[id: string]: ADHOCCAST.Cmds.IUser}){
+        senders = senders || this.state.senders;
+        let selectedSenders = {}
+        Object.keys(senders).forEach(id => {
+            let sender = this.state.senders[id];
+            if (sender.extra.selected) {
+                selectedSenders[id] = sender;
+            }
+        })
+        Services.Cmds.CustomSelectSenders.resp(this.props.instanceId, selectedSenders);
     }
 }

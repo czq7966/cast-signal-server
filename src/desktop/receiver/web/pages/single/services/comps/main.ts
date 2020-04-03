@@ -16,7 +16,6 @@ export class Main {
     }
 
     static on_ipc_custom_show_senders_video(main: Comps.Main, cmd: ADHOCCAST.Cmds.Common.ICommand) {
-        console.log('fffffffffffffffffffffff', cmd.data)
         if (cmd.data.type == ADHOCCAST.Cmds.ECommandType.resp) {
         let senders = cmd.data.extra as {[id: string]: ADHOCCAST.Cmds.IUser};
             main.setState({

@@ -46,11 +46,10 @@ export class Main {
         // Services_Cmds.CustomShowSendersVideo.resp(main.adhocConnection.instanceId, null, senders);
     }
     static on_adhoc_custom_on_sending_stream(main: Modules.IMain, cmd: ADHOCCAST.Cmds.Common.ICommand) {
-        Services_Cmds.CustomGetSendingUsers.resp(main.adhocConnection.instanceId);
+        Services_Cmds.CustomGetSendingUsers.resp();
     }
     static on_adhoc_custom_off_sending_stream(main: Modules.IMain, cmd: ADHOCCAST.Cmds.Common.ICommand) {
-        Services_Cmds.CustomGetSendingUsers.resp(main.adhocConnection.instanceId);
-
+        Services_Cmds.CustomGetSendingUsers.resp();
     }    
     static on_custom_get_sendering_users(main: Modules.IMain, cmd: ADHOCCAST.Cmds.Common.ICommand) {
         // if (cmd.data.type == ADHOCCAST.Dts.ECommandType.resp)  {

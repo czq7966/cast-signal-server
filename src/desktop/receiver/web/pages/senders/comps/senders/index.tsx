@@ -8,7 +8,7 @@ import { CompSendersList } from "./list";
 
 
 export interface ICompSendersProps extends PageCommon.ICompBaseProps {
-
+    onSelectSenders?: (senders: {[id: string]: ADHOCCAST.Cmds.IUser}) => {}
 }
 export interface ICompSendersState extends PageCommon.ICompBaseState {
 
@@ -30,7 +30,10 @@ export class CompSenders extends PageCommon.CompBase<ICompSendersProps, ICompSen
             <div className={"sds-comp-senders-div"} >
                 <div className="sds-comp-senders-div-header"></div>
                 <div className="sds-comp-senders-div-list">
-                    <CompSendersList instanceId={this.props.instanceId} ></CompSendersList>
+                    <CompSendersList instanceId={this.props.instanceId} 
+                        onSelectSenders={this.props.onSelectSenders} >
+
+                    </CompSendersList>
                 </div>
                 <div className="sds-comp-senders-div-footer"></div>
             </div>

@@ -1,10 +1,12 @@
 import React = require("react");
 import ReactDOM = require('react-dom');
+import { ADHOCCAST } from '../../../../common';
 import * as Modules from '../modules'
 import * as PageCommon from '../../common'
-import { CompAvatars } from "./avatars";
+import { CompAvatars, CompDragAvatar } from "./avatars";
 import { CompPanelID } from "./panel-id";
 import { CompSenders } from "./senders";
+import { CompSelected } from "./selected"
 import './main.css'
 
 export interface IMainProps extends PageCommon.ICompBaseProps {
@@ -45,6 +47,10 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
             div.style.height = window.innerHeight + "px";
         }
     }
+    onSelectSenders = (senders: {[id: string]: ADHOCCAST.Cmds.IUser}) => {
+        Object.keys(senders).length
+
+    }
 
 
     render() {
@@ -73,15 +79,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
 
                 </div>
                 <div  className="sds-comp-main-div-footer-middle">
-                    <div className="sds-comp-main-div-footer-middle-select-div">
-                           <span>0 seleted</span>
-                           <button
-                           >x</button>
-                       </div>
-                    <div>
-                        <button className="sds-comp-main-div-footer-middle-share-button"></button>
-                    </div>
-
+                    <CompSelected instanceId={this.props.instanceId}></CompSelected>
                 </div>
                 <div   className="sds-comp-main-div-footer-right">
                     <span>share.myPromethean.com</span>

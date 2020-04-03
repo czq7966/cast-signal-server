@@ -6,7 +6,7 @@ import { ADHOCCAST } from '../../../../../common'
 export class IPCConnection {
     static on_after_root(ipcConnection: Modules.IIPCConnection, cmd: ADHOCCAST.Cmds.Common.ICommand): any {
         let cmdId = cmd.data.cmdId;
-        let type = cmd.data.type;        
+        let type = cmd.data.type;    
         switch(cmdId) {
             case Common.Cmds.ECommandId.custom_refresh_sid:
                 if (type == ADHOCCAST.Cmds.ECommandType.req)
@@ -18,7 +18,7 @@ export class IPCConnection {
                 break;
             case Common.Cmds.ECommandId.custom_get_sendering_users:
                     if (type == ADHOCCAST.Cmds.ECommandType.req)
-                        Services_Cmds.CustomGetSendingUsers.onReq(cmd)                
+                        Services_Cmds.CustomGetSendingUsers.onReq(null)                
                 break;  
             case Common.Cmds.ECommandId.custom_show_senders_video:
                 if (type == ADHOCCAST.Cmds.ECommandType.req)

@@ -5,6 +5,7 @@ export enum ECommandId {
     custom_get_current_user = "custom_get_current_user",
     custom_get_sendering_users = "custom_get_sendering_users",
     custom_show_senders_video = "custom_show_senders_video",
+    custom_select_senders = "custom_select_senders",
 
     custom_on_sending_stream = "custom_on_sending_stream",
     custom_off_sending_stream = "custom_off_sending_stream",
@@ -20,6 +21,7 @@ export enum ECommandId {
     ECommandId.custom_get_current_user,
     ECommandId.custom_get_sendering_users,
     ECommandId.custom_show_senders_video,
+    ECommandId.custom_select_senders,
     
     ECommandId.custom_on_sending_stream,
     ECommandId.custom_off_sending_stream,

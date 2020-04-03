@@ -4,13 +4,17 @@ import * as Common from '../../../../../common';
 
 
 export class CustomGetSendingUsers {
-    static onReq(cmd: ADHOCCAST.Cmds.Common.ICommand): Promise<any> {
-        return this.resp(cmd.instanceId, cmd)
+    static req(instanceId?: string): Promise<any> {
+        return this.resp(instanceId)
     }
-    static resp(instanceId: string, reqCmd?: ADHOCCAST.Cmds.Common.ICommand): Promise<any> {
+    static onReq(cmd: ADHOCCAST.Cmds.Common.ICommand): Promise<any> {
+        return this.resp(null, cmd)
+    }
+    static resp(instanceId?: string, reqCmd?: ADHOCCAST.Cmds.Common.ICommand): Promise<any> {
         let users: {[id: string]: ADHOCCAST.Cmds.IUser} = {};
-        let data: ADHOCCAST.Dts.ICommandData<ADHOCCAST.Dts.ICommandRespDataProps> = {}   ;
-        let conn = Modules.Main.getInstance<Modules.Main>().adhocConnection.connection;
+        let data: ADHOCCAST.Dts.ICommandData<ADHOCCAST.Dts.ICommandRespDataProps> = {};
+        let mainModule = Modules.Main.getInstance<Modules.Main>();
+        let conn = mainModule.adhocConnection.connection;
         if (conn.isLogin()) {
             let room = conn.rooms.getLoginRoom();
             room.users.keys().forEach(key => {
@@ -29,8 +33,13 @@ export class CustomGetSendingUsers {
         }
         else  {
             data.cmdId = Common.Cmds.ECommandId.custom_get_sendering_users;
-            data.type = ADHOCCAST.Dts.ECommandType.resp;            
-            return ADHOCCAST.Services.Cmds.User.dispatchCommand2(instanceId, data);
+            data.type = ADHOCCAST.Dts.ECommandType.resp;   
+            if (instanceId) {         
+                return ADHOCCAST.Services.Cmds.User.dispatchCommand2(instanceId, data);
+            } else {
+                ADHOCCAST.Services.Cmds.User.dispatchCommand2(mainModule.ipcConnection.instanceId, data);
+                ADHOCCAST.Services.Cmds.User.dispatchCommand2(mainModule.adhocConnection.instanceId, data);
+            }
         }
     }
 }

@@ -7,6 +7,7 @@ import React = require("react");
 import { Player } from './player';
 
 import './main.css';
+import { CompDragAvatar } from './drag-avatar';
 
 
 export interface IMainProps extends PageCommon.ICompBaseProps {
@@ -35,6 +36,13 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         setTimeout(() => {
             this.onWindowResize(null);                    
         }, 100);
+    }
+    setState(state: IMainState) {
+        super.setState(state);
+    }
+    windowResize() {
+
+        window.resizeBy(10, 10);
     }
     onWindowResize(ev) {
         let elems = document.getElementsByClassName('bg-comp-main-player-div');
@@ -96,6 +104,9 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
                             
         }, 10 * 1000);
     }
+    onAvatarClick() {
+        Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, {});       
+    }
 
 
     render() {
@@ -120,6 +131,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         }
         return (<div className="bg-comp-main-div" >
             {players}
+            <CompDragAvatar instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()}></CompDragAvatar>
         </div>)   
     }    
 

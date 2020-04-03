@@ -41,7 +41,7 @@ export class CompAvatars extends PageCommon.CompBase<ICompAvatarsProps, ICompAva
                         style={{
                                 backgroundImage:"url('../../images/orange_bubble_icon.svg')"
                                 }} >
-                    {this.state.count}123
+                    {this.state.count}qqq
                 </div>
             </div>
         )
@@ -49,7 +49,7 @@ export class CompAvatars extends PageCommon.CompBase<ICompAvatarsProps, ICompAva
 
     onAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
         let cmdId = cmd.data.cmdId;
-        let type = cmd.data.type;        
+        let type = cmd.data.type;   
         switch(cmdId) {            
             case Common.Cmds.ECommandId.custom_get_sendering_users:
                 if (type == ADHOCCAST.Cmds.ECommandType.resp) {
