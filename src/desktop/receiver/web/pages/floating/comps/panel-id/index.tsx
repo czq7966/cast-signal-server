@@ -32,9 +32,17 @@ export class CompPanelID extends PageCommon.CompBase<ICompPanelIDProps, ICompPan
     }
 
     render() {
+        let len = this.state.panelID.length;
+        let letterArr = []
+        for (let idx = 0; idx < len; idx++) {
+            const letter = this.state.panelID[idx];  
+            letterArr.push(<span>{letter}</span>);          
+        }
         return (
             <div className={this.props.className || "flt-comp-panel-id-div"} >
-                <span>{this.state.panelID}</span>
+
+                {letterArr}
+                
             </div>
         )
     }

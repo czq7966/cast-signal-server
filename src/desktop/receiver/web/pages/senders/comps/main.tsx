@@ -57,13 +57,16 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         return (<div className="sds-comp-main-div" >
             <div className="sds-comp-main-div-header">
                 <div className="sds-comp-main-div-header-left">
-                    <div style={{height: "60px", width: "60px"}}>
-                        <CompAvatars instanceId={this.props.instanceId} ></CompAvatars>                        
+                    <div>
+                        <CompAvatars avatar={{size: 100}} badge={{}} instanceId={this.props.instanceId} ></CompAvatars>                        
                     </div>                    
                 </div>
                 <div className="sds-comp-main-div-header-middle">
+                    <span className="sds-comp-main-div-header-middle-span">Panel ID</span>
                     <div>
-                        <CompPanelID instanceId={this.props.instanceId}></CompPanelID>                        
+                        <CompPanelID instanceId={this.props.instanceId}
+                            className="sds-comp-main-div-header-middle-panel-id"
+                        ></CompPanelID>                        
                     </div>                    
                 </div>
                 <div className="sds-comp-main-div-header-right"></div>

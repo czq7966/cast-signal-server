@@ -8,8 +8,16 @@
     background-color: blue;
 }
 .sds-comp-senders-div-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 34px;
     background-color: teal;
+    font-size: 25px;
+    font-weight: bolder;
+}
+.sds-comp-senders-div-header-count{
+    color: #FF6600;
 }
 
 .sds-comp-senders-div-list{

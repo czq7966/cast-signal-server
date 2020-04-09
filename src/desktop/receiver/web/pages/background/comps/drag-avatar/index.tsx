@@ -17,8 +17,12 @@ export interface ICompDragAvatarState extends PageCommon.ICompBaseState {
 
 export class CompDragAvatar extends PageCommon.CompBase<ICompDragAvatarProps, ICompDragAvatarState> {
     _dragged: boolean;
+    _draggedCount: number
+    _maxDraggedCount: number
     constructor(props) {
         super(props);
+        this._maxDraggedCount = 2;
+        this._draggedCount = 0;
         this.setRooterEvent(null, this.onAfterRoot);
     }
     componentDidMount() {
@@ -36,9 +40,9 @@ export class CompDragAvatar extends PageCommon.CompBase<ICompDragAvatarProps, IC
                 <Draggable  onDrag={()=>this.onDrag()} 
                             onMouseDown={()=>this.onMouseDown()}
                             onStart={()=>this.onStart()} 
-                            onStop={()=>this.onStop()}>
+                            onStop={()=>this.onStop()} >
                     <Affix >
-                        <Floating.CompAvatars instanceId={this.props.instanceId} ></Floating.CompAvatars>
+                        <Floating.CompAvatars avatar={{}} badge={{}} instanceId={this.props.instanceId} ></Floating.CompAvatars>
                     </Affix>     
                 </Draggable>
             </div>
@@ -56,13 +60,17 @@ export class CompDragAvatar extends PageCommon.CompBase<ICompDragAvatarProps, IC
     } 
 
     onDrag() {
-        this._dragged = true;
+        this._draggedCount++;
+        if (this._draggedCount >= this._maxDraggedCount) {
+            this._dragged = true;
+        }
     }
     onMouseDown() {
 
     }
     onStart() {
         this._dragged = false;
+        this._draggedCount = 0;
     }
     onStop() {
         if (!this._dragged) {

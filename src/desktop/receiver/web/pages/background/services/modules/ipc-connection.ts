@@ -23,7 +23,11 @@ export class IPCConnection {
             case Common.Cmds.ECommandId.custom_show_senders_video:
                 if (type == ADHOCCAST.Cmds.ECommandType.req)
                     Services_Cmds.CustomShowSendersVideo.onReq(cmd, null)                
-                break;                
+                break;  
+            case Common.Cmds.ECommandId.custom_stop_cast:
+                if (type == ADHOCCAST.Cmds.ECommandType.req)
+                    Services_Cmds.CustomStopCast.onReq(cmd as any)                
+                break;              
             default:
                 break;
         }     

@@ -17,7 +17,7 @@ html, body {
     display: flex;
     flex-direction: row;
 
-    /* height: 220px; */
+    height: calc(193px / 1080px);
     background-color: blue;
 }
 
@@ -33,6 +33,22 @@ html, body {
     width: 50%;
     background-color: green;
 }
+.sds-comp-main-div-header-middle-span {
+    font-size: 25px;
+    font-weight: bold;
+}
+.sds-comp-main-div-header-middle-panel-id {
+    display: flex;
+    justify-content: space-between;
+}
+.sds-comp-main-div-header-middle-panel-id span{
+    font-family: Helvetica;
+    font-size: 100px;
+    font-weight: bold;
+    width: 100%;
+}
+
+
 .sds-comp-main-div-header-right {
     width: 25%;
     background-color: greenyellow;

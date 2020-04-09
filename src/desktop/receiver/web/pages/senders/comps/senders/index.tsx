@@ -11,12 +11,15 @@ export interface ICompSendersProps extends PageCommon.ICompBaseProps {
     onSelectSenders?: (senders: {[id: string]: ADHOCCAST.Cmds.IUser}) => {}
 }
 export interface ICompSendersState extends PageCommon.ICompBaseState {
-
+    count: any
 }
 
 export class CompSenders extends PageCommon.CompBase<ICompSendersProps, ICompSendersState> {
     constructor(props) {        
         super(props);
+        this.state = {
+            count: 0
+        }
         this.dispatcher.eventRooter.onAfterRoot.add(this.onAfterRoot);
     }
     destroy() {
@@ -28,7 +31,13 @@ export class CompSenders extends PageCommon.CompBase<ICompSendersProps, ICompSen
     render() {
         return (
             <div className={"sds-comp-senders-div"} >
-                <div className="sds-comp-senders-div-header"></div>
+                <div className="sds-comp-senders-div-header">
+                    <div>
+                        <span>Waiting Room:&nbsp;</span>
+                        <span className="sds-comp-senders-div-header-count">{this.state.count}</span>
+                        <span>&nbsp;Device(s)</span>
+                    </div>
+                </div>
                 <div className="sds-comp-senders-div-list">
                     <CompSendersList instanceId={this.props.instanceId} 
                         onSelectSenders={this.props.onSelectSenders} >
@@ -42,13 +51,23 @@ export class CompSenders extends PageCommon.CompBase<ICompSendersProps, ICompSen
 
     onAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
         let cmdId = cmd.data.cmdId;
-        let type = cmd.data.type;
-        switch(cmdId) {
-
-
+        let type = cmd.data.type;   
+        switch(cmdId) {            
+            case Common.Cmds.ECommandId.custom_get_sendering_users:
+                if (type == ADHOCCAST.Cmds.ECommandType.resp) {
+                    let users: {[id: string]: ADHOCCAST.Cmds.IUser} = cmd.data.extra;
+                    let length = users ? Object.keys(users).length: 0;
+                    this.setState({
+                        count: length
+                    })
+                }
+                break;
+            case ADHOCCAST.Cmds.ECommandId.network_disconnect:
+                this.setState({count: 0});
+                break;
             default:
                 break;
         }     
-    }   
+    }      
 
 }

@@ -105,6 +105,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         }, 10 * 1000);
     }
     onAvatarClick() {
+        console.log('22222222222222')
         Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, {});       
     }
 

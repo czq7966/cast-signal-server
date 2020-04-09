@@ -89,7 +89,7 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                                     {sender.nick ? sender.nick : sender.sid}
                                 </div>
                                 <div  className="sds-comp-senders-list-item-close-div">
-                                    <button>X</button>
+                                    <button onClick={() => this.onStopCastClick(key)}>X</button>
                                 </div>
                             </div>)
 
@@ -179,6 +179,9 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
         this.setState({
             senders: this.state.senders
         })
+    }
+    onStopCastClick(senderId: string) {
+        Services.Cmds.CustomStopCast.req(this.props.instanceId, senderId);
     }
     trigSelectSendersEvent(senders: {[id: string]: ADHOCCAST.Cmds.IUser}){
         senders = senders || this.state.senders;

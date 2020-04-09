@@ -5,6 +5,7 @@ import * as Modules from '../modules'
 import * as BGComps from '../../background/comps'
 import * as SDSComps from '../../senders/comps'
 import * as Services from '../services';
+import { CompDragAvatar } from '../../background/comps/drag-avatar'
 import './main.css'
 
 export interface IMainProps extends PageCommon.ICompBaseProps {    
@@ -65,6 +66,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
             <div className="sg-comp-main-sds-root" style={{display: sdsDisplay}}>
                 <SDSComps.Main instanceId={this.props.moduleMain.sdsModuleMain.ipcConnection.instanceId} ></SDSComps.Main>
             </div>
+            <CompDragAvatar instanceId={this.props.moduleMain.sdsModuleMain.ipcConnection.instanceId}></CompDragAvatar>
         </div>)
     }
 
