@@ -7,7 +7,7 @@ import Badge, { BadgeProps } from "antd/lib/badge";
 // import { UserOutline } from '@ant-design/icons';
 import 'antd/lib/Avatar/style/index.css'
 import 'antd/lib/Badge/style/index.css'
-import './index.css'
+import './index.less'
 
 export interface ICompAvatarsProps extends PageCommon.ICompBaseProps {
     avatar: AvatarProps
@@ -39,48 +39,55 @@ export class CompAvatars extends PageCommon.CompBase<ICompAvatarsProps, ICompAva
 
     render() {
         return (
-            <Badge 
-                /** Number to show in badge */
-                count={this.props.badge.count || this.state.count}
-                showZero={this.props.badge.showZero}
-                /** Max count to show */
-                overflowCount={this.props.badge.overflowCount}
-                /** whether to show red dot without number */
-                dot={this.props.badge.dot}
-                style={this.props.badge.style}
-                prefixCls={this.props.badge.prefixCls}
-                scrollNumberPrefixCls={this.props.badge.scrollNumberPrefixCls}
-                className={this.props.badge.className}
-                status={this.props.badge.status}
-                text={this.props.badge.text}
-                offset={this.props.badge.offset}
-                title={this.props.badge.title}
-             >
-                <Avatar 
-                    shape={this.props.avatar.shape}
-                    size={this.props.avatar.size || 61}
-                    /** Src of image avatar */
-                    src={this.props.avatar.src}
-                    /** Srcset of image avatar */
-                    srcSet={this.props.avatar.srcSet}
-                    /** Type of the Icon to be used in avatar */
-                    icon={this.props.avatar.icon || "user"}
-                    style={this.props.avatar.style}
-                    prefixCls={this.props.avatar.prefixCls}
-                    className={this.props.avatar.className || "fit-comp-avatar"}
-                    children={this.props.avatar.children}
-                    alt={this.props.avatar.alt}
-                    onError={this.props.avatar.onError}                    
-                />
-            </Badge>
-            // <div className={"flt-comp-avatars-div"} >
-            //     <div className={"flt-comp-avatars-div-icon"} ></div>
-            //     <div className={"flt-comp-avatars-div-bubble"} >
-            //         <div>
-            //             {this.state.count}
-            //         </div>
-            //     </div>
+            // <div style={{position: "relative", width: "100%", height: "100%"}}>
+            //     <Avatar 
+            //         shape={this.props.avatar.shape}
+            //         size={this.props.avatar.size || 61}
+            //         /** Src of image avatar */
+            //         src={this.props.avatar.src}
+            //         /** Srcset of image avatar */
+            //         srcSet={this.props.avatar.srcSet}
+            //         /** Type of the Icon to be used in avatar */
+            //         // icon={this.props.avatar.icon || "user"}
+            //         style={{
+            //             position: "absolute", 
+            //             width:null, 
+            //             height:null,
+            //             lineHeight: null,
+            //             fontSize: "600%"
+            //         }}
+            //         prefixCls={this.props.avatar.prefixCls}
+            //         className={this.props.avatar.className || "fit-comp-avatar"}
+            //         children={this.props.avatar.children}
+            //         alt={this.props.avatar.alt}
+            //         onError={this.props.avatar.onError}                    
+            //     />
+            //     <Badge 
+            //         /** Number to show in badge */
+            //         count={this.props.badge.count || this.state.count || 12}
+            //         showZero={this.props.badge.showZero}
+            //         /** Max count to show */
+            //         overflowCount={this.props.badge.overflowCount}
+            //         /** whether to show red dot without number */
+            //         dot={this.props.badge.dot}
+            //         style={{position: "absolute"}}
+            //         prefixCls={this.props.badge.prefixCls}
+            //         scrollNumberPrefixCls={this.props.badge.scrollNumberPrefixCls}
+            //         className={this.props.badge.className || "fit-comp-badge"}
+            //         status={this.props.badge.status}
+            //         text={this.props.badge.text}
+            //         offset={this.props.badge.offset}
+            //         title={this.props.badge.title}
+            //     />
             // </div>
+            <div className="fit-comp-avatar-div" >
+                <div className="fit-comp-avatar-avatar" ></div>
+                <div className="fit-comp-avatar-badge" >
+                    <div>
+                        {this.state.count || 123}
+                    </div>
+                </div>
+            </div>
         )
     }
 

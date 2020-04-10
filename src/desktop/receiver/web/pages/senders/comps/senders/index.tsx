@@ -3,8 +3,8 @@ import ReactDOM = require('react-dom');
 import { ADHOCCAST } from '../../../../../common';
 import * as PageCommon from '../../../common'
 import * as Common from '../../../../../common'
-import './index.css'
 import { CompSendersList } from "./list";
+import './index.less'
 
 
 export interface ICompSendersProps extends PageCommon.ICompBaseProps {

@@ -5,9 +5,9 @@ import { ADHOCCAST } from '../../../../common'
 
 import React = require("react");
 import { Player } from './player';
-
-import './main.css';
 import { CompDragAvatar } from './drag-avatar';
+import './main.less';
+
 
 
 export interface IMainProps extends PageCommon.ICompBaseProps {
@@ -105,7 +105,6 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         }, 10 * 1000);
     }
     onAvatarClick() {
-        console.log('22222222222222')
         Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, {});       
     }
 
@@ -132,7 +131,12 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         }
         return (<div className="bg-comp-main-div" >
             {players}
-            <CompDragAvatar instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()}></CompDragAvatar>
+            <div className="bg-comp-main-avatar-div">
+                <CompDragAvatar instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()} ></CompDragAvatar>
+            </div>
+            {/* <div>
+                <CompDragAvatar instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()}></CompDragAvatar>
+            </div> */}
         </div>)   
     }    
 

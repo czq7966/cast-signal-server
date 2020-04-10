@@ -36,16 +36,17 @@ export class CompDragAvatar extends PageCommon.CompBase<ICompDragAvatarProps, IC
 
     render() {
         return (
-            <div style={{ position: 'absolute', top: '50%', right: '10%'}}>
-                <Draggable  onDrag={()=>this.onDrag()} 
+            // <div style={{ position: 'absolute', top: '50%', right: '10%'}}>
+                <Draggable  
+                            onDrag={()=>this.onDrag()} 
                             onMouseDown={()=>this.onMouseDown()}
                             onStart={()=>this.onStart()} 
                             onStop={()=>this.onStop()} >
-                    <Affix >
+                    <div style={{width:"100%", height: "100%"}}>
                         <Floating.CompAvatars avatar={{}} badge={{}} instanceId={this.props.instanceId} ></Floating.CompAvatars>
-                    </Affix>     
+                    </div>
                 </Draggable>
-            </div>
+            // </div>
         )
     }
 

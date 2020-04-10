@@ -66,7 +66,6 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
             <div className="sg-comp-main-sds-root" style={{display: sdsDisplay}}>
                 <SDSComps.Main instanceId={this.props.moduleMain.sdsModuleMain.ipcConnection.instanceId} ></SDSComps.Main>
             </div>
-            <CompDragAvatar instanceId={this.props.moduleMain.sdsModuleMain.ipcConnection.instanceId}></CompDragAvatar>
         </div>)
     }
 

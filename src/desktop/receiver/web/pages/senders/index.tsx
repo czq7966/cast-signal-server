@@ -15,7 +15,10 @@ var params: Modules.IMainConstructorParams = {
 var moduleMain = Modules.Main.getInstance<Modules.Main>(params);
 
 function startRender() {
-    let rootEl = document.getElementById('root');
+    let rootEl = document.getElementById('root') as HTMLDivElement;
+    rootEl.addEventListener('resize', () => {
+        console.log('ggggggggg', rootEl.clientWidth, rootEl.clientHeight)
+    })
     rootEl && 
     ReactDOM.render(
         <Comps.Main instanceId={Modules.Main.getInstance<Modules.Main>().ipcConnection.instanceId} ></Comps.Main>

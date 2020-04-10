@@ -4,7 +4,7 @@ import { ADHOCCAST } from '../../../../../common';
 import * as PageCommon from '../../../common'
 import * as Common from '../../../../../common'
 import * as Services from '../../services'
-import './index.css'
+import './index.less'
 
 
 export interface ICompSelectedProps extends PageCommon.ICompBaseProps {

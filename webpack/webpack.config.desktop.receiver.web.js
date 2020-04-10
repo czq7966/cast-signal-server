@@ -103,15 +103,25 @@ module.exports = env => {
                         {
                             loader: "css-loader",
                             options: {url: false}
-                           
-
                         }
                     ]
-
-                    // loader: "style-loader!css-loader"
-                    // loader: "style-loader",
-                    // exclude: /node_modules/
-                }               
+                },
+                {
+                    test: /\.less$/,
+                    use: [{
+                        loader: "style-loader" // creates style nodes from JS strings
+                    }, {
+                        loader: "css-loader", // translates CSS into CommonJS
+                        options: {url: false}
+                    }, {
+                        loader: "less-loader" // compiles Less to CSS
+                    }, {
+                        loader: 'style-resources-loader',
+                        options: {
+                            patterns: path.resolve(__dirname, './webpack.config.desktop.receiver.web.common.less')
+                        }
+                    }]
+                }              
             ]
         },
         plugins: plugins,

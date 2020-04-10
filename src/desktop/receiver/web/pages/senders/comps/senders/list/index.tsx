@@ -4,7 +4,7 @@ import { ADHOCCAST } from '../../../../../../common'
 import * as Common from '../../../../../../common'
 import * as PageCommon from '../../../../common'
 import * as Services from '../../../services'
-import './index.css'
+import './index.less'
 
 export interface ISenderUserExtra {
     selected: boolean
@@ -26,13 +26,13 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
         // this.state.senders["1"] = {
         //     id: "1",
         //     sid: "1",
-        //     nick: "1111111",
+        //     nick: "123456789012345678901234567890",
         //     extra: {selected: false}
         // }
         // this.state.senders["2"] = {
         //     id: "2",
         //     sid: "2",
-        //     nick: "222222",
+        //     nick: "123456789012345678901234567890",
         //     extra: {selected: true}
         // }
         this.setRooterEvent(null, this.onAfterRoot);
@@ -62,13 +62,13 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                 let senderUI = (
                     <div key={idx} className="sds-comp-senders-list-item-div" >
                                 <div className="sds-comp-senders-list-item-check-div">
-                                    <input type="checkbox" style={{visibility:"hidden"}}  />
+                                    {/* <input type="checkbox" style={{visibility:"hidden"}}  /> */}
                                 </div>
                                 <div className="sds-comp-senders-list-item-nick-div" >
                                     <span></span>
                                 </div>
-                                <div  className="sds-comp-senders-list-item-close-div">
-                                    <button style={{visibility:"hidden"}}>X</button>
+                                <div  className="sds-comp-senders-list-item-close-div" style={{visibility:"hidden"}}>
+                                    {/* <button style={{visibility:"hidden"}}>X</button> */}
                                 </div>
 
                     </div>);
@@ -89,7 +89,7 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                                     {sender.nick ? sender.nick : sender.sid}
                                 </div>
                                 <div  className="sds-comp-senders-list-item-close-div">
-                                    <button onClick={() => this.onStopCastClick(key)}>X</button>
+                                    <button onClick={() => this.onStopCastClick(key)}></button>
                                 </div>
                             </div>)
 

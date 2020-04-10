@@ -7,7 +7,7 @@ import { CompAvatars, CompDragAvatar } from "./avatars";
 import { CompPanelID } from "./panel-id";
 import { CompSenders } from "./senders";
 import { CompSelected } from "./selected"
-import './main.css'
+import './main.less'
 
 export interface IMainProps extends PageCommon.ICompBaseProps {
 
@@ -57,8 +57,16 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         return (<div className="sds-comp-main-div" >
             <div className="sds-comp-main-div-header">
                 <div className="sds-comp-main-div-header-left">
-                    <div>
-                        <CompAvatars avatar={{size: 100}} badge={{}} instanceId={this.props.instanceId} ></CompAvatars>                        
+                    <div className="sds-comp-main-div-header-left-avatar">
+                        <CompAvatars 
+                            avatar={
+                                {   style:{width: null, height: null, fontSize: null}, 
+                                    className:"sds-comp-main-div-header-left-avatar" 
+                                }} 
+                            badge={{
+                                style:{width: null, height: null, fontSize: null}, 
+                                className:"sds-comp-main-div-header-left-badge"                                 
+                            }} instanceId={this.props.instanceId} ></CompAvatars>                        
                     </div>                    
                 </div>
                 <div className="sds-comp-main-div-header-middle">
