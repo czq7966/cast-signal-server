@@ -58,15 +58,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
             <div className="sds-comp-main-div-header">
                 <div className="sds-comp-main-div-header-left">
                     <div className="sds-comp-main-div-header-left-avatar">
-                        <CompAvatars 
-                            avatar={
-                                {   style:{width: null, height: null, fontSize: null}, 
-                                    className:"sds-comp-main-div-header-left-avatar" 
-                                }} 
-                            badge={{
-                                style:{width: null, height: null, fontSize: null}, 
-                                className:"sds-comp-main-div-header-left-badge"                                 
-                            }} instanceId={this.props.instanceId} ></CompAvatars>                        
+                        <CompAvatars fontSize="20px" instanceId={this.props.instanceId} ></CompAvatars>                        
                     </div>                    
                 </div>
                 <div className="sds-comp-main-div-header-middle">

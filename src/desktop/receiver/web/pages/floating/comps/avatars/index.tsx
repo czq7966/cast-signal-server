@@ -10,8 +10,7 @@ import 'antd/lib/Badge/style/index.css'
 import './index.less'
 
 export interface ICompAvatarsProps extends PageCommon.ICompBaseProps {
-    avatar: AvatarProps
-    badge: BadgeProps
+    fontSize?: string
 }
 export interface ICompAvatarsState extends PageCommon.ICompBaseState {
     count: any;
@@ -38,6 +37,7 @@ export class CompAvatars extends PageCommon.CompBase<ICompAvatarsProps, ICompAva
 
 
     render() {
+        let fontSize = null;
         return (
             // <div style={{position: "relative", width: "100%", height: "100%"}}>
             //     <Avatar 
@@ -79,12 +79,12 @@ export class CompAvatars extends PageCommon.CompBase<ICompAvatarsProps, ICompAva
             //         offset={this.props.badge.offset}
             //         title={this.props.badge.title}
             //     />
-            // </div>
+            // </divs>
             <div className="fit-comp-avatar-div" >
                 <div className="fit-comp-avatar-avatar" ></div>
-                <div className="fit-comp-avatar-badge" >
+                <div className="fit-comp-avatar-badge" style={{fontSize: this.props.fontSize}} >
                     <div>
-                        {this.state.count || 123}
+                        {this.state.count}
                     </div>
                 </div>
             </div>

@@ -132,7 +132,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         return (<div className="bg-comp-main-div" >
             {players}
             <div className="bg-comp-main-avatar-div">
-                <CompDragAvatar instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()} ></CompDragAvatar>
+                <CompDragAvatar fontSize="11px"  instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()} ></CompDragAvatar>
             </div>
             {/* <div>
                 <CompDragAvatar instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()}></CompDragAvatar>

@@ -10,6 +10,7 @@ import './index.css'
 
 export interface ICompDragAvatarProps extends PageCommon.ICompBaseProps {
     onClick?: Function
+    fontSize?: string
 }
 export interface ICompDragAvatarState extends PageCommon.ICompBaseState {
 
@@ -43,7 +44,7 @@ export class CompDragAvatar extends PageCommon.CompBase<ICompDragAvatarProps, IC
                             onStart={()=>this.onStart()} 
                             onStop={()=>this.onStop()} >
                     <div style={{width:"100%", height: "100%"}}>
-                        <Floating.CompAvatars avatar={{}} badge={{}} instanceId={this.props.instanceId} ></Floating.CompAvatars>
+                        <Floating.CompAvatars fontSize={this.props.fontSize} instanceId={this.props.instanceId} ></Floating.CompAvatars>
                     </div>
                 </Draggable>
             // </div>

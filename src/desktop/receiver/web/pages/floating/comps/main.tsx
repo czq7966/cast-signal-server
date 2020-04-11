@@ -56,7 +56,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
                 </div>
                 <div className="comps-main-div-footer">
                     <div className="comps-main-div-footer-avatars">
-                        <CompAvatars avatar={{}} badge={{}} instanceId={this.props.instanceId}></CompAvatars>
+                        <CompAvatars instanceId={this.props.instanceId}></CompAvatars>
                     </div>
                     <CompFrame></CompFrame>
                 </div>

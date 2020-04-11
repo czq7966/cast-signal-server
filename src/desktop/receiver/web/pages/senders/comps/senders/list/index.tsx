@@ -80,9 +80,17 @@ export class CompSendersList extends PageCommon.CompBase<ICompSendersListProps, 
                     if (sender) {
                         senderUI = (
                             <div key={key} className="sds-comp-senders-list-item-div" >
-                                <div className="sds-comp-senders-list-item-check-div">
-                                    <input type="checkbox" checked={sender.extra.selected}
-                                        onClick={() => this.onSenderSelect(key)} />
+                                <div className={"sds-comp-senders-list-item-check-div"} >
+                                    <div className={
+                                                    sender.extra.selected 
+                                                        ? "sds-comp-senders-list-item-checked-button"
+                                                        : "sds-comp-senders-list-item-unchecked-button"
+                                                    } 
+                                        onClick={() => this.onSenderSelect(key)}  >
+                                        <button ></button>
+                                    </div>
+                                    {/* <input type="checkbox" checked={sender.extra.selected}
+                                        onClick={() => this.onSenderSelect(key)} /> */}
                                 </div>
                                 <div className="sds-comp-senders-list-item-nick-div" 
                                      onClick={() => this.onSenderClick(key)}>

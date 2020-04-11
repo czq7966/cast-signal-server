@@ -43,12 +43,33 @@
     background-color: #404040;
     border-radius: 20px 20px 20px 20px;    
 
-    
     .sds-comp-senders-list-item-check-div {
-        margin-left: 5px;
+        margin-left: 8px;
         margin-right: 10px;
-        zoom: 1.2;
-    }
+        div {
+            button {
+                width: 15px;
+                height: 15px;   
+                background: transparent;
+                border: 0px;
+                border-style: none;
+                outline: none;  
+            }
+        }
+
+        .sds-comp-senders-list-item-checked-button {
+            background: transparent url('../../images/checkbox_panel_light_checked.svg') 0% 0% no-repeat padding-box;
+            background-size: 100% 100%; 
+        }
+    
+        .sds-comp-senders-list-item-unchecked-button {
+            background: transparent url('../../images/checkbox_panel_light_unchecked.svg') 0% 0% no-repeat padding-box;
+            background-size: 100% 100%; 
+        }
+
+
+    }  
+
     .sds-comp-senders-list-item-nick-div {
         white-space: nowrap;
         overflow: hidden;
