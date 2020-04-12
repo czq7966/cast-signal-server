@@ -34,6 +34,6 @@ export class IPCConnection {
     }
     static async invokeCommand(cmd:ADHOCCAST.Dts.ICommandData<any>, ipcConnection?: Modules.IIPCConnection) {
         ipcConnection = ipcConnection || Modules.Main.getInstance<Modules.Main>().ipcConnection;
-        await ipcConnection.connection.dispatcher.signaler.sendCommand(cmd);
+        await ipcConnection.connection.dispatcher.sendCommand(cmd);
     }    
 }

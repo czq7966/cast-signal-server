@@ -1,11 +1,12 @@
+import React = require("react");
 import * as Modules from '../../modules'
 import * as PageCommon from '../../../common'
 import * as Services from '../../services';
 import { ADHOCCAST } from '../../../../../common'
 
-import React = require("react");
-import Card from 'antd/lib/card'
-import 'antd/lib/card/style/index.css'
+
+// import Card from 'antd/lib/card'
+// import 'antd/lib/card/style/index.css'
 
 
 export interface IPlayerProps extends PageCommon.ICompBaseProps {
@@ -16,7 +17,7 @@ export interface IPlayerState extends PageCommon.ICompBaseState {
     user: ADHOCCAST.Cmds.IUser
 }
 
-export class Player extends PageCommon.CompBase<IPlayerProps, IPlayerState> {
+export class CompPlayer extends PageCommon.CompBase<IPlayerProps, IPlayerState> {
     viewId: string;
     moduleMain: Modules.IMain;
     videoElement: HTMLVideoElement;
@@ -58,7 +59,7 @@ export class Player extends PageCommon.CompBase<IPlayerProps, IPlayerState> {
 
     render() {
         return (<div>
-            <Card title="Card title1" bodyStyle={{ border: "none", padding:"0px" }} >
+            {/* <Card title="Card title1" bodyStyle={{ border: "none", padding:"0px" }} > */}
                 <video
                     style={{width:"100%"}}
                     ref={ref => {this.onVideoRef(ref)}}
@@ -67,7 +68,7 @@ export class Player extends PageCommon.CompBase<IPlayerProps, IPlayerState> {
                     playsInline                            
                 >
                 </video>
-            </Card>            
+            {/* </Card>             */}
         </div>)   
     }    
 

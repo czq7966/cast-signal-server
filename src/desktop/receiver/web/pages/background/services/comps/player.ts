@@ -3,11 +3,11 @@ import { ADHOCCAST } from '../../../../../common'
 import * as Common from '../../../../../common';
 
 export class Player {
-    static on_ipc_after_root(player: Comps.Player, cmd: ADHOCCAST.Cmds.Common.ICommand) {
+    static on_ipc_after_root(player: Comps.CompPlayer, cmd: ADHOCCAST.Cmds.Common.ICommand) {
 
     }
 
-    static on_adhoc_after_root(player: Comps.Player, cmd: ADHOCCAST.Cmds.Common.ICommand) {
+    static on_adhoc_after_root(player: Comps.CompPlayer, cmd: ADHOCCAST.Cmds.Common.ICommand) {
         let cmdId = cmd.data.cmdId;
         let type = cmd.data.type;        
         switch(cmdId) {
@@ -19,7 +19,7 @@ export class Player {
         } 
     }    
 
-    static on_stream_webrtc_onrecvstream(player: Comps.Player, cmd: ADHOCCAST.Cmds.Common.ICommand) {
+    static on_stream_webrtc_onrecvstream(player: Comps.CompPlayer, cmd: ADHOCCAST.Cmds.Common.ICommand) {
         let props = cmd.data.props as ADHOCCAST.Cmds.ICommandDataProps;
         let user = props.user;
         let streamRoom = ADHOCCAST.Services.Modules.Rooms.getRoom(player.moduleMain.adhocConnection.instanceId, user.room.id);
@@ -28,11 +28,11 @@ export class Player {
         }
     }
     
-    static getStream(player: Comps.Player): MediaStream {
+    static getStream(player: Comps.CompPlayer): MediaStream {
         return ADHOCCAST.Services.Modules.User.getMyRecvStream(player.moduleMain.adhocConnection.instanceId, player.props.userId)
     }
 
-    static play(player: Comps.Player) {
+    static play(player: Comps.CompPlayer) {
         player.videoElement && (player.videoElement.srcObject = this.getStream(player));
     }
 }

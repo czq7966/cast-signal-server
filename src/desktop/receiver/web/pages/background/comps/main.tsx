@@ -4,9 +4,10 @@ import * as Services from '../services';
 import { ADHOCCAST } from '../../../../common'
 
 import React = require("react");
-import { Player } from './player';
+import { CompPlayers } from './players';
 import { CompDragAvatar } from './drag-avatar';
 import './main.less';
+
 
 
 
@@ -33,9 +34,7 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
     componentDidMount() {
         super.componentDidMount();
         window.addEventListener('resize', this.onWindowResize);
-        setTimeout(() => {
-            this.onWindowResize(null);                    
-        }, 100);
+        this.onWindowResize(null);                    
     }
     setState(state: IMainState) {
         super.setState(state);
@@ -45,6 +44,12 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         window.resizeBy(10, 10);
     }
     onWindowResize(ev) {
+        let divs = document.getElementsByClassName('bg-comp-main-div');
+        if (divs.length > 0) {
+            let div = divs[0] as HTMLDivElement;
+            div.style.height = window.innerHeight - 2 + "px";
+        }
+        return;
         let elems = document.getElementsByClassName('bg-comp-main-player-div');
         let count = elems.length;
         if (elems.length > 0) {
@@ -110,33 +115,13 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
 
 
     render() {
-        let players = [];
-
-        if (this.state.senders) {
-            let keys = Object.keys(this.state.senders);
-
-            // for (let idx = 0; idx < 7; idx++) {
-            //     keys = keys.concat(Object.keys(this.state.senders));
-            // }
-            
-            for (let idx = 0; idx < keys.length; idx++) {
-                const key = keys[idx];
-                let palyer = (
-                    <div className="bg-comp-main-player-div" >
-                        <Player  key={idx} instanceId={this.props.instanceId} userId={key}></Player>
-                    </div>
-                )
-                players.push(palyer);                
-            }
-        }
         return (<div className="bg-comp-main-div" >
-            {players}
+            <div className="bg-comp-main-div-players">
+                <CompPlayers instanceId={this.props.instanceId}></CompPlayers>
+            </div>
             <div className="bg-comp-main-avatar-div">
                 <CompDragAvatar fontSize="11px"  instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()} ></CompDragAvatar>
             </div>
-            {/* <div>
-                <CompDragAvatar instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()}></CompDragAvatar>
-            </div> */}
         </div>)   
     }    
 

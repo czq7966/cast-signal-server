@@ -34,9 +34,6 @@ export class Main  extends ADHOCCAST.Cmds.Common.Base implements IMain {
         this.ipcConnection.eventRooter.onAfterRoot.add(this.onIPCAfterRoot);
         this.adhocConnection.eventRooter.onBeforeRoot.add(this.onAdhocBeforeRoot);
         this.adhocConnection.eventRooter.onAfterRoot.add(this.onAdhocAfterRoot);
-
-        // this.adhocConnection.config.items.loginID = "783701";
-        // Services.Modules.AdhocConnection.login(this.adhocConnection)
     }
     unInit() {
         this.ipcConnection.eventRooter.onAfterRoot.remove(this.onIPCAfterRoot);
