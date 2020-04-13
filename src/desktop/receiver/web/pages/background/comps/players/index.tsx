@@ -5,6 +5,7 @@ import { ADHOCCAST } from '../../../../../common'
 
 import React = require("react");
 import { CompPlayer } from '../player';
+import { CompDragAvatar } from '../drag-avatar';
 import './index.less';
 
 
@@ -13,7 +14,8 @@ export interface IPlayersProps extends PageCommon.ICompBaseProps {
 
 }
 export interface IPlayersState extends PageCommon.ICompBaseState {
-    senders?: {[id: string]: ADHOCCAST.Cmds.IUser}        
+    senders?: {[id: string]: ADHOCCAST.Cmds.IUser}   
+    fullSenderId?: string     
 }
 
 export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersState> {
@@ -30,6 +32,7 @@ export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersStat
         super.componentDidMount();
     }
     setState(state: IPlayersState) {
+        state.fullSenderId = state.fullSenderId || null;
         super.setState(state);
     }
 
@@ -39,6 +42,7 @@ export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersStat
     }
     unInit() {
         this.resetRooterEvent();
+        this.dispatcher.sendFilter.onAfterRoot.remove(this.onIPCSendFilterAfterRoot)
     }
 
     onIPCSendFilterAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
@@ -47,18 +51,50 @@ export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersStat
     onIPCAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
         return Services.Comps.Players.on_ipc_after_root(this, cmd);
     }  
-   
+
+    onAvatarClick() {
+        let fullSenderId = this.state.fullSenderId;
+        if ( fullSenderId && this.state.senders[fullSenderId] ) {
+            this.setState({})
+        } else {
+            Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, {});    
+        }   
+    }  
+    onFullSenderClick (senderId: string) {
+        if (senderId && senderId != this.state.fullSenderId && this.state.senders[senderId] ) {
+            this.setState({
+                fullSenderId: senderId
+            })
+        }
+    } 
 
 
     render() {
         let players = [];
-
-        if (this.state.senders) {
-            let userIds = Object.keys(this.state.senders);
-            
-            for (let idx = 0; idx < 7; idx++) {
-                userIds = userIds.concat(Object.keys(this.state.senders));
+        let senders = {};
+        let userIds = []
+        let fullSenderId = this.state.fullSenderId;
+        let fullSender = fullSenderId ? this.state.senders[fullSenderId] : null;
+        if (fullSender) {
+            senders[this.state.fullSenderId] = fullSender;
+            userIds = Object.keys(senders);
+        } else {
+            senders = this.state.senders;
+            if (senders) {     
+                userIds = Object.keys(senders);           
+                for (let idx = 0; idx < 7; idx++) {                    
+                    userIds = userIds.concat(Object.keys(senders));
+                }            
             }
+        }
+        
+
+        if (senders) {
+            // let userIds = Object.keys(senders);
+            
+            // for (let idx = 0; idx < 7; idx++) {
+            //     userIds = userIds.concat(Object.keys(senders));
+            // }
 
             let count = userIds.length;
             let rowCount = Math.floor(Math.sqrt(count));
@@ -74,7 +110,11 @@ export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersStat
                     let idx = colIdx * rowCount + rowIdx;
                     let userId = userIds[idx]
                     let player = (
-                        <div key={idx} className="bg-comp-Players-div-col-row" style={{height: 100 / rowCount + "%"}}>
+                        <div key={idx} 
+                            className="bg-comp-players-div-col-row" 
+                            style={{height: 100 / rowCount + "%"}}
+                            onClick={() => this.onFullSenderClick(userId)}
+                            >
                             { userId 
                                 ? <CompPlayer instanceId={this.props.instanceId} userId={userId}></CompPlayer>
                                 : null
@@ -85,7 +125,7 @@ export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersStat
                     rowPlayers.push(player);
                 }
                 let colDiv = (
-                    <div key={colIdx} className="bg-comp-Players-div-col" style={{width: 100 / colCount + "%"}}>
+                    <div key={colIdx} className="bg-comp-players-div-col" style={{width: 100 / colCount + "%"}}>
                         {rowPlayers}
                     </div>
                 )
@@ -94,8 +134,11 @@ export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersStat
             players.push(colPlayers);
         }
 
-        return (<div className="bg-comp-Players-div" >
+        return (<div className="bg-comp-players-div" >
             {players}
+            <div className="bg-comp-players-avatar-div">
+                <CompDragAvatar fontSize="11px"  instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()} ></CompDragAvatar>
+            </div>
         </div>)   
     }    
 

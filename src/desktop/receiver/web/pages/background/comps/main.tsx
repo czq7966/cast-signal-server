@@ -40,36 +40,19 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
         super.setState(state);
     }
     windowResize() {
-
-        window.resizeBy(10, 10);
-    }
-    onWindowResize(ev) {
         let divs = document.getElementsByClassName('bg-comp-main-div');
         if (divs.length > 0) {
             let div = divs[0] as HTMLDivElement;
-            div.style.height = window.innerHeight - 2 + "px";
+            div.style.height = window.innerHeight + "px";
         }
-        return;
-        let elems = document.getElementsByClassName('bg-comp-main-player-div');
-        let count = elems.length;
-        if (elems.length > 0) {
-            let wc = Math.floor(Math.sqrt(count))
-            let hc = wc;
-            wc * hc < count ? wc++ : null;
-            wc * hc < count ? hc++ : null;
-
-            let w = Math.floor(window.innerWidth / wc) - 1;
-            let h = Math.floor(window.innerHeight / hc) - 1;
-            for (let idx = 0; idx < elems.length; idx++) {
-                const elem = elems[idx] as HTMLElement;
-                elem.style.width = 100 / wc  + "%";
-                elem.style.height = h  + "px";                
-            }
-        }
+    }
+    onWindowResize = (ev) => {
+        this.windowResize();
     }
 
     init() {
         this.setRooterEvent(null, this.onIPCAfterRoot);
+        this.dispatcher.sendFilter.onAfterRoot.add(this.onIPCSendFilterAfterRoot)
         this.moduleMain.adhocConnection.eventRooter.onBeforeRoot.add(this.onAdhocBeforeRoot);
         this.moduleMain.adhocConnection.eventRooter.onAfterRoot.add(this.onAdhocAfterRoot);
 
@@ -82,9 +65,12 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
     unInit() {
         this.moduleMain.adhocConnection.eventRooter.onBeforeRoot.remove(this.onAdhocBeforeRoot);
         this.moduleMain.adhocConnection.eventRooter.onAfterRoot.remove(this.onAdhocAfterRoot);
+        this.dispatcher.sendFilter.onAfterRoot.remove(this.onIPCSendFilterAfterRoot)
         this.resetRooterEvent();
     }
-
+    onIPCSendFilterAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
+        return Services.Comps.Main.on_ipc_send_filter_after_root(this, cmd);
+    }  
     onIPCAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
         return Services.Comps.Main.on_ipc_after_root(this, cmd);
     }  
@@ -109,18 +95,11 @@ export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
                             
         }, 10 * 1000);
     }
-    onAvatarClick() {
-        Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, {});       
-    }
-
 
     render() {
         return (<div className="bg-comp-main-div" >
             <div className="bg-comp-main-div-players">
                 <CompPlayers instanceId={this.props.instanceId}></CompPlayers>
-            </div>
-            <div className="bg-comp-main-avatar-div">
-                <CompDragAvatar fontSize="11px"  instanceId={this.props.instanceId} onClick={()=>this.onAvatarClick()} ></CompDragAvatar>
             </div>
         </div>)   
     }    

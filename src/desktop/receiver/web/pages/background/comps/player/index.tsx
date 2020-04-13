@@ -3,7 +3,7 @@ import * as Modules from '../../modules'
 import * as PageCommon from '../../../common'
 import * as Services from '../../services';
 import { ADHOCCAST } from '../../../../../common'
-
+import "./index.less"
 
 // import Card from 'antd/lib/card'
 // import 'antd/lib/card/style/index.css'
@@ -12,6 +12,7 @@ import { ADHOCCAST } from '../../../../../common'
 export interface IPlayerProps extends PageCommon.ICompBaseProps {
     userId: string    
     viewId?: string
+    muted?: boolean
 }
 export interface IPlayerState extends PageCommon.ICompBaseState {
     user: ADHOCCAST.Cmds.IUser
@@ -58,18 +59,16 @@ export class CompPlayer extends PageCommon.CompBase<IPlayerProps, IPlayerState> 
 
 
     render() {
-        return (<div>
-            {/* <Card title="Card title1" bodyStyle={{ border: "none", padding:"0px" }} > */}
-                <video
-                    style={{width:"100%"}}
-                    ref={ref => {this.onVideoRef(ref)}}
-                    controls
-                    autoPlay
-                    playsInline                            
-                >
-                </video>
-            {/* </Card>             */}
-        </div>)   
+        return (<div className="bg-comp-player-div">
+                    <video 
+                        ref={ref => {this.onVideoRef(ref)}}
+                        // controls
+                        muted={this.props.muted}
+                        autoPlay
+                        playsInline                            
+                    >
+                    </video>
+                </div>)   
     }    
 
 }
