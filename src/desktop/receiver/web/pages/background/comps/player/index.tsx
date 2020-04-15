@@ -13,6 +13,7 @@ export interface IPlayerProps extends PageCommon.ICompBaseProps {
     userId: string    
     viewId?: string
     muted?: boolean
+    constraintName?: string
 }
 export interface IPlayerState extends PageCommon.ICompBaseState {
     user: ADHOCCAST.Cmds.IUser

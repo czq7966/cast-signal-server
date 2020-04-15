@@ -22,7 +22,7 @@ export class CompDragAvatar extends PageCommon.CompBase<ICompDragAvatarProps, IC
     _maxDraggedCount: number
     constructor(props) {
         super(props);
-        this._maxDraggedCount = 2;
+        this._maxDraggedCount = 5;
         this._draggedCount = 0;
         this.setRooterEvent(null, this.onAfterRoot);
     }

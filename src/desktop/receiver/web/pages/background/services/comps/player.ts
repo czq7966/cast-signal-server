@@ -33,6 +33,13 @@ export class Player {
     }
 
     static play(player: Comps.CompPlayer) {
-        player.videoElement && (player.videoElement.srcObject = this.getStream(player));
+        if (player.videoElement) {
+              Common.Services.Cmds.CustomApplyVideoConstraints.req(
+                player.moduleMain.adhocConnection.instanceId, 
+                player.props.userId, 
+                player.props.constraintName);
+
+            player.videoElement.srcObject = this.getStream(player)
+        };
     }
 }

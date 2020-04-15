@@ -82,20 +82,14 @@ export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersStat
             senders = this.state.senders;
             if (senders) {     
                 userIds = Object.keys(senders);           
-                for (let idx = 0; idx < 7; idx++) {                    
-                    userIds = userIds.concat(Object.keys(senders));
-                }            
+                // for (let idx = 0; idx < 7; idx++) {                    
+                //     userIds = userIds.concat(Object.keys(senders));
+                // }            
             }
         }
         
 
-        if (senders) {
-            // let userIds = Object.keys(senders);
-            
-            // for (let idx = 0; idx < 7; idx++) {
-            //     userIds = userIds.concat(Object.keys(senders));
-            // }
-
+        if (userIds.length > 0) {
             let count = userIds.length;
             let rowCount = Math.floor(Math.sqrt(count));
             let colCount = rowCount;
@@ -116,7 +110,11 @@ export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersStat
                             onClick={() => this.onFullSenderClick(userId)}
                             >
                             { userId 
-                                ? <CompPlayer instanceId={this.props.instanceId} userId={userId}></CompPlayer>
+                                ? <CompPlayer 
+                                    instanceId={this.props.instanceId} 
+                                    userId={userId}
+                                    constraintName={count > 1 ? "good" : "best"}
+                                    ></CompPlayer>
                                 : null
                             }
                             
