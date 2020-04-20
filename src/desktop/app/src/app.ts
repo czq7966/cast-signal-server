@@ -13,6 +13,9 @@ export interface IApp {
     destroyWindows()
     createWindow(name: string, iClass: windows.IBaseWindowClass)
     destroyWindow(name: string) 
+    closeWinodw(id: string)
+    minimizeWindow(id: string)
+    maxmizeWindow(id: string)
 }
 
 export class App implements IApp {
@@ -37,11 +40,28 @@ export class App implements IApp {
         delete this.windows;
     }
     init() {
+        this.ipcConnection.dispatcher.eventRooter.onAfterRoot.add(this.onAfterRoot);
         this.initApp();
     }
     uninit() {
         this.unInitApp();
+        this.ipcConnection.dispatcher.eventRooter.onAfterRoot.remove(this.onAfterRoot)
     }
+
+    onAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
+        let cmdId = cmd.data.cmdId;
+        let type = cmd.data.type;   
+        switch(cmdId) {            
+            case Common.Cmds.ECommandId.custom_window_close:
+                this.closeWinodw(cmd.data.from.id);
+                break;
+            case Common.Cmds.ECommandId.custom_window_minimize:
+                this.minimizeWindow(cmd.data.from.id);
+                break;
+            default:
+                break;
+        }     
+    }  
 
     initApp() {
         electron.app.on('ready', () => {
@@ -99,5 +119,20 @@ export class App implements IApp {
             window.destroy();
             delete this.windows[name];
         }
+    }
+
+    closeWinodw(id: string) {
+        let browserWindow = electron.BrowserWindow.fromId(parseInt(id));
+        browserWindow && browserWindow.close();
+    }
+    minimizeWindow(id: string) {
+        let browserWindow = electron.BrowserWindow.fromId(parseInt(id));
+        browserWindow && browserWindow.minimize();
+    }
+    maxmizeWindow(id: string) {
+
+    }
+    restoreWindow(id: string) {
+
     }
 }

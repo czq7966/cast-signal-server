@@ -63,6 +63,10 @@ export class IPCMainSignaler implements IIPCMainSignaler {
     }
 
     onMessage = (event, arg) => {
+        let cmd = arg as  ADHOCCAST.Dts.ICommandData<any>;
+        cmd.from = cmd.from || {}
+        cmd.from.type = cmd.from.type || 'user';
+        cmd.from.id = cmd.from.id || event.sender.id + "";
         this.eventEmitter.emit(ADHOCCAST.Cmds.CommandID, arg);
         this.renderWindows.forEach(renderWindow => {
             if (event.sender.webContents === renderWindow.webContents) {                

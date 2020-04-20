@@ -12,7 +12,13 @@ export enum ECommandId {
     //for remote adhoc
     custom_stop_cast = "custom_stop_cast",
     custom_get_sender_info = "custom_get_sender_info",
-    custom_apply_video_constraints = "custom_apply_video_constraints"
+    custom_apply_video_constraints = "custom_apply_video_constraints",
+
+    // for window
+    custom_window_close = "custom_window_close",
+    custom_window_minimize = "custom_window_minimize",
+    custom_window_maximize = "custom_window_maximize",
+    custom_window_restore = "custom_window_restore",
 }    
 
 
@@ -29,6 +35,12 @@ export enum ECommandId {
 
     ECommandId.custom_stop_cast,
     ECommandId.custom_get_sender_info,
+
+    ECommandId.custom_window_close,
+    ECommandId.custom_window_maximize,
+    ECommandId.custom_window_minimize,
+    ECommandId.custom_window_restore
+
 ].forEach(commanid => {
     ADHOCCAST.Cmds.Common.CommandTypes.RegistCommandType({
         cmdId: commanid,

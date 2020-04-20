@@ -1,17 +1,20 @@
 import React = require("react");
 import ReactDOM = require("react-dom");
+import { PageCommon } from "../../../../libex";
+import * as Services from '../../services'
+import * as Cmds from '../../cmds'
 import './index.less'
 
-export interface WinIconsProps {
+export interface WinIconsProps extends PageCommon.ICompBaseProps  {
 
 }
 
-export interface WinIconsState {    
+export interface WinIconsState extends PageCommon.ICompBaseState  {    
 
 }
 
 
-export class WinIcons extends React.Component<WinIconsProps, WinIconsState> {
+export class WinIcons extends PageCommon.CompBase<WinIconsProps, WinIconsState> {
     constructor(props) {
         super(props);  
     }
@@ -27,13 +30,21 @@ export class WinIcons extends React.Component<WinIconsProps, WinIconsState> {
         this.destroy();
     }
 
+    doClose() {
+        Cmds.CustomWindow.close(this.props.instanceId)
+    }
+
+    doMinimize() {
+        Cmds.CustomWindow.minimize(this.props.instanceId);
+    }
+
     render() {
         return (
             <div className="title-win-icons-div">
-                <button onClick={() => window.blur()}
+                <button onClick={() =>  this.doMinimize()}
                     className="title-win-icons-min-button"
                 >-</button>
-                <button onClick={() => window.close()}
+                <button onClick={() => this.doClose() }
                     className="title-win-icons-close-button"
                 >X</button>              
             </div>

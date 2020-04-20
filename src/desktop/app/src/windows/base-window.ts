@@ -15,6 +15,10 @@ export interface IClass {
 
 export interface IBaseWindowClass extends IClass {}
 
+export interface IBrowserWindow extends electron.BrowserWindow {
+    baseWindow: IBaseWindow
+}
+
 export interface IBaseWindow {
     app: IApp;
     options: IBaseWindowConstructorOptions;
@@ -41,6 +45,7 @@ export class BaseWindow implements IBaseWindow {
     createWindow(options?: IBaseWindowConstructorOptions) {
         options = options || this.options;
         this.window = new electron.BrowserWindow(options.options);
+        (this.window as IBrowserWindow).baseWindow = this;
         (this.app.ipcConnection.signaler as IIPCMainSignaler).addRenderWindow(this.window);
         if (!!options.url) {
             this.window.loadURL(options.url);

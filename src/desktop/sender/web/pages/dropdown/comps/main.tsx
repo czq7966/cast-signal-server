@@ -1,19 +1,20 @@
 import React = require("react");
 import ReactDOM = require("react-dom");
 import { Dropdown } from '../../../../../../../../activ-cast/src/activ-cast/pages/dropdown/index';
+
 import './main.less'
 import { WinIcons } from "./win-icons";
-export interface MainProps {
+import { PageCommon, ADHOCCAST } from "../../../libex";
+
+
+export interface IMainProps extends PageCommon.ICompBaseProps {
 
 }
-
-export interface MainState {    
-
+export interface IMainState extends PageCommon.ICompBaseState {
+    senders?: {[id: string]: ADHOCCAST.Cmds.IUser}        
 }
 
-
-export class Main extends React.Component<MainProps, MainState> {
-
+export class Main extends PageCommon.CompBase<IMainProps, IMainState> {
     constructor(props) {
         super(props);  
     }
@@ -34,10 +35,9 @@ export class Main extends React.Component<MainProps, MainState> {
             let titleDiv = titles[0] as HTMLDivElement;
             titleDiv.style["-webkit-app-region"] = "drag";
             let iconsDiv = document.createElement('div');
-            iconsDiv.className = "title-icons-div";
+            iconsDiv.className = "title-main-win-icons-div";
             titleDiv.appendChild(iconsDiv);
-            // const title = React.createElement("button", {className: "main"}, "XX");
-            ReactDOM.render(<WinIcons />, 
+            ReactDOM.render(<WinIcons instanceId={this.props.instanceId} />, 
                 iconsDiv);
     
 
