@@ -17,13 +17,18 @@ export class IPCConnection extends PageCommon.IPCConnection  {
         super.destroy();
     }
     initEvents() {
-        this.eventRooter.onAfterRoot.add(this.onAfterRoot)     
+        this.eventRooter.onAfterRoot.add(this.onAfterRoot)    
+        this.connection.dispatcher.sendFilter.onAfterRoot.add(this.onSendFilterAfterRoot) 
     }
     unInitEvents() {
+        this.connection.dispatcher.sendFilter.onAfterRoot.remove(this.onSendFilterAfterRoot) 
         this.eventRooter.onAfterRoot.remove(this.onAfterRoot)
     }
 
     onAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
         return Services.Modules.IPCConnection.on_after_root(this, cmd);
-    }      
+    }  
+    onSendFilterAfterRoot = (cmd: ADHOCCAST.Cmds.Common.ICommand): any => {
+        return Services.Modules.IPCConnection.on_send_filter_after_foot(this, cmd);
+    }     
 }

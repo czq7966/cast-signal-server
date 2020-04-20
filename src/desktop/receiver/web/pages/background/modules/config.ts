@@ -13,10 +13,11 @@ export interface IConfigItems {
 var defaultItems: IConfigItems = {
     // signaler : "https://mdm.hk.101.com:13670",
     // signalerBase: "http://adhoc-cast-signaler.ws.101.com",  
-    signaler: "https://adhoc-cast-signaler.101.com",            
+    // signaler: "https://adhoc-cast-signaler.101.com",  
+    signaler: "https://servicediscovery.mypromethean.com",          
     organization: "promethean",
     roomPrefix: "promethean_",
-    loginID: "",
+    loginID: ADHOCCAST.Cmds.Common.Helper.uuid(6, 10),
     user: {
         id: null        
     }

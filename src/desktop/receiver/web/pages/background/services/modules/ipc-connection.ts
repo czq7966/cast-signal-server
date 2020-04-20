@@ -32,6 +32,21 @@ export class IPCConnection {
                 break;
         }     
     }
+    static on_send_filter_after_foot(ipcConnection: Modules.IIPCConnection, data: ADHOCCAST.Dts.ICommandData<any>): any {
+        let cmdId = data.cmdId;
+        let type = data.type;    
+        switch(cmdId) {
+            case ADHOCCAST.Dts.ECommandId.adhoc_login:            
+            case ADHOCCAST.Dts.ECommandId.adhoc_logout:
+            case ADHOCCAST.Dts.ECommandId.network_disconnect:
+            case ADHOCCAST.Dts.ECommandId.user_state_onchange:                
+                Services_Cmds.CustomGetCurrentUser.resp(ipcConnection.instanceId);
+                break;
+            default:
+                break;
+        }    
+    }
+
     static async invokeCommand(cmd:ADHOCCAST.Dts.ICommandData<any>, ipcConnection?: Modules.IIPCConnection) {
         ipcConnection = ipcConnection || Modules.Main.getInstance<Modules.Main>().ipcConnection;
         await ipcConnection.connection.dispatcher.sendCommand(cmd);

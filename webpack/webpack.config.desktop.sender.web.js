@@ -90,9 +90,25 @@ module.exports = env => {
                 },
                 {
                     test: /\.css$/,
-                    loader: "style-loader!css-loader",
+                    use: [{
+                        loader: "style-loader" // creates style nodes from JS strings
+                    }, {
+                        loader: "css-loader", // translates CSS into CommonJS
+                        options: {url: false}
+                    }],
                     exclude: /node_modules/
                 },
+                {
+                    test: /\.less$/,
+                    use: [{
+                        loader: "style-loader" // creates style nodes from JS strings
+                    }, {
+                        loader: "css-loader", // translates CSS into CommonJS
+                        options: {url: false}
+                    }, {
+                        loader: "less-loader" // compiles Less to CSS
+                    }]
+                } 
             ]
         },
         plugins: plugins,

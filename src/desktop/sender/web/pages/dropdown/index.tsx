@@ -4,7 +4,7 @@ import React = require("react");
 import ReactDOM = require('react-dom');
 import { Main as Background } from "../../../../../../../activ-cast/src/activ-cast/background/main";
 import { storage } from "../../../../../../../activ-cast/src/activ-cast/background/storage";
-import { Dropdown } from '../../../../../../../activ-cast/src/activ-cast/pages/dropdown/index';
+import * as Comps from './comps'
 
 
 function startRender() {
@@ -13,7 +13,7 @@ function startRender() {
 
     rootEl && 
     ReactDOM.render(
-        <Dropdown/>
+        <Comps.Main />
     , rootEl);
 }
 

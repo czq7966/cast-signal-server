@@ -34,17 +34,6 @@ export class AdhocConnection {
                 break;
         }
 
-        switch(cmdId) {
-            case ADHOCCAST.Dts.ECommandId.adhoc_login:            
-            case ADHOCCAST.Dts.ECommandId.adhoc_logout:
-            case ADHOCCAST.Dts.ECommandId.network_disconnect:
-            case ADHOCCAST.Dts.ECommandId.user_state_onchange:                
-                Services_Cmds.CustomGetCurrentUser.resp(adhocConnection.instanceId);
-                break;
-            default:
-                break;
-        }  
-
         if (cmd.data.type === ADHOCCAST.Dts.ECommandType.resp && cmd.data.sessionId ) {
             cmd.data.sessionId = null;
         }       
