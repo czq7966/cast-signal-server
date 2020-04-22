@@ -137,18 +137,23 @@ export namespace chrome {
 
     export namespace storage {
         export class StorageArea {
+            static itemId: string = "da9cf64a81d733e25a1905be70411d3ad262f641";
             clear(callback?: () => void): void {
-                //Todo
+                window.localStorage.clear();
+                callback && callback();
             }
             set(items: Object, callback?: () => void): void {
-                //Todo
+                let value = JSON.stringify(items);
+                localStorage.setItem(StorageArea.itemId, value);
             }
             remove(keys: string | string[], callback?: () => void): void {
                 //Todo
             }
 
             get(callback: (items: { [key: string]: any }) => void): void {
-                callback({});
+                let value = localStorage.getItem(StorageArea.itemId);
+                let items = value && JSON.parse(value);
+                callback(items);
             }
 
             // get(keys: string | string[] | Object | null, callback: (items: { [key: string]: any }) => void): void {
