@@ -40,6 +40,22 @@ export class Player {
                 player.props.constraintName);
 
             player.videoElement.srcObject = this.getStream(player)
+            this.enableTouchback(player);
         };
+    }
+    static enableTouchback(player: Comps.CompPlayer) {
+        if (player.videoElement) {
+            let mStreamRoom = ADHOCCAST.Services.Modules.User.getStreamRoom2(
+                    player.moduleMain.adhocConnection.instanceId, 
+                    player.props.userId);
+            let mMe = mStreamRoom ? mStreamRoom.me() : null;
+            let mPeer = mMe && mMe.peer;
+            let inputElement = mPeer && mPeer.input.inputElement;
+            if (inputElement) {
+                player.props.enableTouchback 
+                    ? inputElement.attachHTMLElement(player.videoElement)
+                    : inputElement.deattachHTMLElement(player.videoElement);
+            }            
+        };       
     }
 }

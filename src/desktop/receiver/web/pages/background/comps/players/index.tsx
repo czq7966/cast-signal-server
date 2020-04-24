@@ -107,13 +107,14 @@ export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersStat
                         <div key={idx} 
                             className="bg-comp-players-div-col-row" 
                             style={{height: 100 / rowCount + "%"}}
-                            onClick={() => this.onFullSenderClick(userId)}
+                            onClick={() => count > 1 ? this.onFullSenderClick(userId) : null}
                             >
                             { userId 
                                 ? <CompPlayer 
                                     instanceId={this.props.instanceId} 
                                     userId={userId}
                                     constraintName={count > 1 ? "good" : "best"}
+                                    enableTouchback={count == 1}
                                     ></CompPlayer>
                                 : null
                             }
