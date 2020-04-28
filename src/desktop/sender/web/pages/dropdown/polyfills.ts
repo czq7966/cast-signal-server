@@ -297,7 +297,7 @@ export namespace chrome {
     }
 }
 
-window.chrome = chrome;
+window.chrome = chrome as any;
 
 
 import { captureDesktop } from '../../../../../../../activ-cast/src/activ-cast/background/capture.desktop';

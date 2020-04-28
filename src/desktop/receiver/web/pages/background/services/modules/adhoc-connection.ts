@@ -90,7 +90,8 @@ export class AdhocConnection {
                 instanceId: adhocConnection.instanceId,
                 signalerBase: adhocConnection.config.items.signaler,
                 namespace: adhocConnection.config.items.organization,
-                parent: adhocConnection
+                parent: adhocConnection,
+                notInitDispatcherFilters: true
             }
     
             adhocConnection.connection = ADHOCCAST.Connection.getInstance(connParams);            
