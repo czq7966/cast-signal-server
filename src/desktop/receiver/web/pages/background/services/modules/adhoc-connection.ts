@@ -49,7 +49,11 @@ export class AdhocConnection {
             this.offSending(adhocConnection, user);
         }
     }
-    static on_user_state_onchange(adhocConnection: Modules.IAdhocConnection, cmd: ADHOCCAST.Cmds.Common.ICommand) {
+    static _default_view_id: string = ADHOCCAST.Cmds.Common.Helper.uuid();
+    static getDefaultViewId(userId: string): string {
+        return userId + "_" + this._default_view_id;
+    }
+    static async on_user_state_onchange(adhocConnection: Modules.IAdhocConnection, cmd: ADHOCCAST.Cmds.Common.ICommand) {
         let me = adhocConnection.connection.rooms.getLoginRoom().me().item;
         var props = cmd.data.props as ADHOCCAST.Cmds.ICommandDataProps;
         var user = props.user;
@@ -57,11 +61,13 @@ export class AdhocConnection {
           let values: ADHOCCAST.Cmds.Common.Helper.IStateChangeValues = user.extra;
           if (ADHOCCAST.Cmds.Common.Helper.StateMachine.isset(values.chgStates, ADHOCCAST.Cmds.EUserState.stream_room_sending) &&
             ADHOCCAST.Cmds.Common.Helper.StateMachine.isset(values.newStates, ADHOCCAST.Cmds.EUserState.stream_room_sending)) {
-            this.onSending(adhocConnection,user);
-            this.joinUserStreamRoom(adhocConnection, user.id);
+            await this.onSending(adhocConnection,user);
+            // this.joinUserStreamRoom(adhocConnection, user.id);
+            this.incRecvingClient(adhocConnection, this.getDefaultViewId(user.id), user.id);
           } else if (ADHOCCAST.Cmds.Common.Helper.StateMachine.isset(values.chgStates, ADHOCCAST.Cmds.EUserState.stream_room_sending) &&
                      !ADHOCCAST.Cmds.Common.Helper.StateMachine.isset(values.newStates, ADHOCCAST.Cmds.EUserState.stream_room_sending)) {
             this.offSending(adhocConnection, user);
+            this.decRecvingClient(adhocConnection, this.getDefaultViewId(user.id))
           }
         }
     }
@@ -106,6 +112,16 @@ export class AdhocConnection {
               nick: adhocConnection.config.items.user.nick,
               room: {
                   id: adhocConnection.config.getRoomId()
+              },
+              host: {
+                  os: {
+                      name: ADHOCCAST.Cmds.Common.Helper.HostInfo.Name as any,
+                      version: ADHOCCAST.Cmds.Common.Helper.HostInfo.FullVersion as any
+                  },
+                  app: {
+                      name: 'web receiver',
+                      version: '0.0.0.0'
+                  }
               }
           }
           return await conn.retryLogin(user, null, null, 5 * 1000);
@@ -150,8 +166,18 @@ export class AdhocConnection {
         var userId = adhocConnection.recvingClients.del(viewId);
         this.joinUserStreamRoom(adhocConnection, userId);
     }
+    static checkOnlyDefaultView(adhocConnection: Modules.IAdhocConnection, userId: string) {
+        let viewId = this.getDefaultViewId(userId);
+        let count = this.getRecvingClientCount(adhocConnection, userId);
+        if (adhocConnection.recvingClients.get(viewId) == userId && count == 1) {
+            Common.Services.Cmds.CustomApplyVideoConstraints.req(
+                adhocConnection.instanceId, 
+                userId, 
+                'min');
+        }
+    }
     static joinUserStreamRoom(adhocConnection: Modules.IAdhocConnection, userId: string): Promise<any> {
-        return new Promise((resolve, reject) => {
+        let promise = new Promise((resolve, reject) => {
             if (userId != null) {
                 let joining = adhocConnection.joiningUsers.exist(userId);
                 let count = this.getRecvingClientCount(adhocConnection, userId);
@@ -188,6 +214,16 @@ export class AdhocConnection {
                 resolve()
             }    
         });
+
+        promise
+        .then(v => {
+            this.checkOnlyDefaultView(adhocConnection, userId);
+        })
+        .catch(e => {
+            this.checkOnlyDefaultView(adhocConnection, userId);
+        })
+
+        return promise;
     }
     static async refreshSendings(adhocConnection: Modules.IAdhocConnection) {
         adhocConnection.sendingUsers.keys().forEach( async key => {
