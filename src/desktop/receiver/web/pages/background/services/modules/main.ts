@@ -35,6 +35,9 @@ export class Main {
                 break;
             case Common.Cmds.ECommandId.custom_off_sending_stream:
                 this.on_adhoc_custom_off_sending_stream(main, cmd);
+                break;
+            case ADHOCCAST.Cmds.ECommandId.adhoc_login:
+                this.on_adhoc_login(main, cmd);
                 break;                               
             default:
                 break;
@@ -61,4 +64,20 @@ export class Main {
             
     }     
 
+    static on_adhoc_login(main: Modules.IMain, cmd: ADHOCCAST.Cmds.Common.ICommand) {
+        let cmdId = cmd.data.cmdId;
+        let type = cmd.data.type;  
+        if (type === ADHOCCAST.Cmds.ECommandType.resp) {
+            let rtcConfig = main.adhocConnection.connection.params.rtcConfig;
+            (rtcConfig.iceServers as any).push(
+                {
+                    'urls': [
+                        'turn:adhoc-turn.101.com:3478',
+                    ],
+                    'username': 'u1',
+                    'credential': 'p1' 
+                }         
+            )
+        }
+    }
 }
