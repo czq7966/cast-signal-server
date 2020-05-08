@@ -17,7 +17,7 @@ export interface IPlayerProps extends PageCommon.ICompBaseProps {
     enableTouchback?: boolean
 }
 export interface IPlayerState extends PageCommon.ICompBaseState {
-    user: ADHOCCAST.Cmds.IUser
+    info?: string 
 }
 
 export class CompPlayer extends PageCommon.CompBase<IPlayerProps, IPlayerState> {
@@ -28,6 +28,7 @@ export class CompPlayer extends PageCommon.CompBase<IPlayerProps, IPlayerState> 
         super(props);
         this.moduleMain = Modules.Main.getInstance<Modules.IMain>();
         this.viewId = this.props.viewId || ADHOCCAST.Cmds.Common.Helper.uuid();
+        this.state = {}
         this.init();
     }
     destroy() {
@@ -70,6 +71,13 @@ export class CompPlayer extends PageCommon.CompBase<IPlayerProps, IPlayerState> 
                         playsInline                            
                     >
                     </video>
+                    {this.state.info 
+                        ?   <div className="bg-comp-player-div-state">
+                                <span>{this.state.info}</span>
+                            </div>
+                        : null
+                    }
+                    
                 </div>)   
     }    
 
