@@ -2,7 +2,6 @@ import { ADHOCCAST } from "../../../../common";
 import { IPCConnection, IIPCConnection } from "./ipc-connection";
 import { AdhocConnection, IAdhocConnection } from "./adhoc-connection";
 import * as Services from '../services';
-ADHOCCAST.Cmds.Common.Helper.Debug.enabled = true;
 
 export interface IMainConstructorParams extends ADHOCCAST.Cmds.Common.IBaseConstructorParams {
     adhocConnection: IAdhocConnection
