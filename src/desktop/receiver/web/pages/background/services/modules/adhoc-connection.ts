@@ -63,7 +63,7 @@ export class AdhocConnection {
             ADHOCCAST.Cmds.Common.Helper.StateMachine.isset(values.newStates, ADHOCCAST.Cmds.EUserState.stream_room_sending)) {
             await this.onSending(adhocConnection,user);
             // this.joinUserStreamRoom(adhocConnection, user.id);
-            this.incRecvingClient(adhocConnection, this.getDefaultViewId(user.id), user.id);
+            this.tryIncRecvingClient(adhocConnection, this.getDefaultViewId(user.id), user.id);
           } else if (ADHOCCAST.Cmds.Common.Helper.StateMachine.isset(values.chgStates, ADHOCCAST.Cmds.EUserState.stream_room_sending) &&
                      !ADHOCCAST.Cmds.Common.Helper.StateMachine.isset(values.newStates, ADHOCCAST.Cmds.EUserState.stream_room_sending)) {
             this.offSending(adhocConnection, user);
@@ -162,18 +162,25 @@ export class AdhocConnection {
             await this.joinUserStreamRoom(adhocConnection, userId);
         }
     }
+    static async tryIncRecvingClient(adhocConnection: Modules.IAdhocConnection, viewId: string, userId: string) {
+        if (this.userSupportFeature_pause(adhocConnection, userId)) {
+            this.incRecvingClient(adhocConnection, viewId, userId)
+        }
+    }
     static  decRecvingClient(adhocConnection: Modules.IAdhocConnection, viewId: string) {
         var userId = adhocConnection.recvingClients.del(viewId);
         this.joinUserStreamRoom(adhocConnection, userId);
     }
     static checkOnlyDefaultView(adhocConnection: Modules.IAdhocConnection, userId: string) {
-        let viewId = this.getDefaultViewId(userId);
-        let count = this.getRecvingClientCount(adhocConnection, userId);
-        if (adhocConnection.recvingClients.get(viewId) == userId && count == 1) {
-            Common.Services.Cmds.CustomApplyVideoConstraints.req(
-                adhocConnection.instanceId, 
-                userId, 
-                'min');
+        if (this.userSupportFeature_pause(adhocConnection, userId)) {
+            let viewId = this.getDefaultViewId(userId);
+            let count = this.getRecvingClientCount(adhocConnection, userId);
+            if (adhocConnection.recvingClients.get(viewId) == userId && count == 1) {
+                Common.Services.Cmds.CustomApplyVideoConstraints.req(
+                    adhocConnection.instanceId, 
+                    userId, 
+                    'min');
+            }
         }
     }
     static joinUserStreamRoom(adhocConnection: Modules.IAdhocConnection, userId: string): Promise<any> {
@@ -347,5 +354,16 @@ export class AdhocConnection {
         cmd.destroy();
         cmd = null;
         return future;
-    }        
+    } 
+    static userSupportFeature_pause(adhocConnection: Modules.IAdhocConnection, userId: string): boolean {
+        let mLoginRoom = ADHOCCAST.Services.Modules.Rooms.getLoginRoom(adhocConnection.instanceId);
+        let mUser = mLoginRoom && mLoginRoom.getUser(userId);
+        let user = mUser && mUser.item;
+        let host = user && user.host;
+        let app = host && host.app || {name: '', version: '0.0.0.0'}
+        let appVerCode = ADHOCCAST.Cmds.Common.Helper.versionToCode(app.version);
+        let minVerCdeo = ADHOCCAST.Cmds.Common.Helper.versionToCode('1.7.1.0');
+
+        return appVerCode >= minVerCdeo;
+    }    
 }
