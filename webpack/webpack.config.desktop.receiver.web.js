@@ -3,6 +3,7 @@ const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = env => {
     env = env ? env : {}; //环境变量
@@ -47,10 +48,10 @@ module.exports = env => {
                 from: path.resolve(srcDir, 'pages/senders/index.html'),
                 to: 'pages/senders/index.html',
             },    
-            {
-                from: path.resolve(srcDir, 'pages/single/index.html'),
-                to: 'pages/single/index.html',
-            },                                  
+            // {
+            //     from: path.resolve(srcDir, 'pages/single/index.html'),
+            //     to: 'pages/single/index.html',
+            // },                                  
             {
                 from: path.resolve(srcDir, 'images'),
                 to: 'images',
@@ -59,7 +60,26 @@ module.exports = env => {
                 from: path.resolve(srcDir, 'locales'),
                 to: 'locales',
             }                                  
-        ]),        
+        ]),
+        new HtmlWebpackPlugin({
+            filename: 'pages/single/index.html',
+            template: path.resolve(srcDir, 'pages/single/index.html'),
+            inject: false,
+
+            templateParameters: (compilation, assets, assetTags, options) => {
+                return {
+                    compilation,
+                    webpackConfig: compilation.options,
+                    htmlWebpackPlugin: {
+                        tags: assetTags,
+                        files: assets,
+                        options
+                    },
+                    'scriptFile': path.basename(assets.js[3])
+                };
+            },
+
+        })       
     )
 
     if (env.production) { //生产模式
@@ -82,7 +102,7 @@ module.exports = env => {
         output: {
             path: distDir,
             libraryTarget: libraryTarget,
-            filename: "[name].js"
+            filename: "[name].[hash].js"
         },
         resolve: {
             extensions: [".ts", ".tsx", ".js"]
