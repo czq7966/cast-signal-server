@@ -2,10 +2,12 @@ import { ADHOCCAST } from '../../../../../common';
 import * as Common from '../../../../../common';
 
 export class CustomShowSendersVideo {
-    static async req(instanceId: string, senders: {[id: string]: ADHOCCAST.Cmds.IUser}) {
+    static async req(instanceId: string, senders: {[id: string]: ADHOCCAST.Cmds.IUser}, fullSenderId: string) {
         let data: ADHOCCAST.Dts.ICommandData<ADHOCCAST.Dts.ICommandReqDataProps> = {} 
         data.cmdId = Common.Cmds.ECommandId.custom_show_senders_video;
-        data.props = {}    
+        data.props = {
+            extra: fullSenderId
+        }    
         data.extra = senders;   
         ADHOCCAST.Services.Cmds.User.dispatchCommand2(instanceId, data); 
     }

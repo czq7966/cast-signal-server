@@ -180,6 +180,7 @@ export class AdhocConnection {
                     adhocConnection.instanceId, 
                     userId, 
                     'min');
+                this.pauseRemoteCast(adhocConnection, userId);
             }
         }
     }
@@ -199,7 +200,10 @@ export class AdhocConnection {
                     resolve()
                 }
                 else {
-                    if (!mMe || mMe.hasRecvStream () != true) {
+                    ADHOCCAST.Dts.Command_stream_webrtc_on_prefix                
+                    if (!mMe || 
+                        mMe.hasRecvStream () != true || 
+                        mMe.getPeer().getRtc().connectionState == 'failed') {
                         this.recvUserStream(adhocConnection, userId)
                         .then(v => {                            
                             mMe = adhocConnection.connection.rooms.getLoginRoom().getUser(userId).getStreamRoom().me();
@@ -263,17 +267,17 @@ export class AdhocConnection {
         ADHOCCAST.Services.Cmds.User.dispatchCommand2(adhocConnection.instanceId, cmd);
     }
     static async offSending(adhocConnection: Modules.IAdhocConnection, user: ADHOCCAST.Cmds.IUser)  {
-    if (adhocConnection.sendingUsers.exist(user.id)) {
-        console.info("offSending", user);
-        adhocConnection.sendingUsers.del(user.id);
-        let cmd: ADHOCCAST.Dts.ICommandData<ADHOCCAST.Dts.ICommandReqDataProps> = {
-            cmdId: Common.Cmds.ECommandId.custom_off_sending_stream,
-            props: {
-                user: user,
-            }
-        };
-        ADHOCCAST.Services.Cmds.User.dispatchCommand2(adhocConnection.instanceId, cmd);
-    }
+        if (adhocConnection.sendingUsers.exist(user.id)) {
+            console.info("offSending", user);
+            adhocConnection.sendingUsers.del(user.id);
+            let cmd: ADHOCCAST.Dts.ICommandData<ADHOCCAST.Dts.ICommandReqDataProps> = {
+                cmdId: Common.Cmds.ECommandId.custom_off_sending_stream,
+                props: {
+                    user: user,
+                }
+            };
+            ADHOCCAST.Services.Cmds.User.dispatchCommand2(adhocConnection.instanceId, cmd);
+        }
     }
     static recvUserStream(adhocConnection: Modules.IAdhocConnection, userId: string): Promise<any> {
         return  new Promise((resolve, reject) => {
@@ -342,7 +346,23 @@ export class AdhocConnection {
         cmd.destroy();
         cmd = null;
         return promise;    
-    }    
+    } 
+    static pauseRemoteCast(adhocConnection: Modules.IAdhocConnection, userId: string): Promise<any> {
+        return ADHOCCAST.Cmds.CommandReq.req(adhocConnection.instanceId, {
+            cmdId: ADHOCCAST.Cmds.ECommandId.custom,
+            props: {},
+            extra: Common.Cmds.ECommandId.custom_pause_cast,
+            to: {type: 'user', id: userId}
+        })
+    }   
+    static resumeRemoteCast(adhocConnection: Modules.IAdhocConnection, userId: string): Promise<any> {
+        return ADHOCCAST.Cmds.CommandReq.req(adhocConnection.instanceId, {
+            cmdId: ADHOCCAST.Cmds.ECommandId.custom,
+            props: {},
+            extra: Common.Cmds.ECommandId.custom_resume_cast,
+            to: {type: 'user', id: userId}
+        })
+    } 
     static getSenderInfo(adhocConnection: Modules.IAdhocConnection, userId: string): Promise<any> {
         let cmd = new ADHOCCAST.Cmds.CommandReq({instanceId: adhocConnection.connection.instanceId, props:{}});
         cmd.data.cmdId = ADHOCCAST.Cmds.ECommandId.custom;
@@ -365,5 +385,13 @@ export class AdhocConnection {
         let minVerCdeo = ADHOCCAST.Cmds.Common.Helper.versionToCode('1.7.1.0');
 
         return appVerCode >= minVerCdeo;
-    }    
+    }   
+    static getSenderRtcConnectionState(adhocConnection: Modules.IAdhocConnection, userId: string): RTCPeerConnectionState {
+        if (adhocConnection.connection.isLogin()) {
+            let streamRoom = ADHOCCAST.Services.Modules.User.getStreamRoom2(adhocConnection.instanceId, userId);
+            let mMe = streamRoom && streamRoom.me();
+            if (mMe && mMe.peer && mMe.peer.rtc)
+                return mMe.peer.rtc.connectionState;
+        }
+    }
 }

@@ -52,19 +52,20 @@ export class CompPlayers extends PageCommon.CompBase<IPlayersProps, IPlayersStat
         return Services.Comps.Players.on_ipc_after_root(this, cmd);
     }  
 
-    onAvatarClick() {
+    async onAvatarClick() {
         let fullSenderId = this.state.fullSenderId;
         if ( fullSenderId && this.state.senders[fullSenderId] ) {
-            this.setState({})
+            // this.setState({})
+            await Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, this.state.senders, null);
         } else {
-            Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, {});    
+            Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, {}, null);    
         }   
     }  
-    onFullSenderClick (senderId: string) {
+    async onFullSenderClick (senderId: string) {
         if (senderId && senderId != this.state.fullSenderId && this.state.senders[senderId] ) {
-            this.setState({
-                fullSenderId: senderId
-            })
+            let senders = this.state.senders;
+            await Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, {}, null);
+            await Services.Cmds.CustomShowSendersVideo.req(this.props.instanceId, senders, senderId);
         }
     } 
 

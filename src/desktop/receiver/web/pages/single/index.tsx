@@ -7,6 +7,8 @@ import * as Comps from './comps'
 import * as BGComps from '../background/comps'
 import * as SDSComps from '../senders/comps'
 import './index.css'
+import { ADHOCCAST } from '../../../../common'
+ADHOCCAST.Cmds.Common.Helper.Debug.enabled = true;
 
 var moduleMain = Modules.Main.getInstance<Modules.IMain>()
 

@@ -30,7 +30,9 @@ export class Players {
       
     static on_ipc_custom_show_senders_video(players: Comps.CompPlayers, cmd: ADHOCCAST.Cmds.Common.ICommand) {
         let senders = cmd.data.extra as {[id: string]: ADHOCCAST.Cmds.IUser};
+        let fullSenderId = cmd.data.props.extra;
         players.setState({
+            fullSenderId: fullSenderId,
             senders: senders
         })
         Services_Cmds.CustomShowSendersVideo.resp(players.instanceId, null, senders);

@@ -28,7 +28,13 @@ export class CompPlayer extends PageCommon.CompBase<IPlayerProps, IPlayerState> 
         super(props);
         this.moduleMain = Modules.Main.getInstance<Modules.IMain>();
         this.viewId = this.props.viewId || ADHOCCAST.Cmds.Common.Helper.uuid();
-        this.state = {}
+
+        let connState = Services.Modules.AdhocConnection.getSenderRtcConnectionState(
+                            this.moduleMain.adhocConnection,
+                            this.props.userId);
+        this.state = {
+            info:  connState == 'connected' ? null : connState
+        }
         this.init();
     }
     destroy() {

@@ -1,6 +1,7 @@
 import * as Comps from "../../comps"
 import { ADHOCCAST } from '../../../../../common'
 import * as Common from '../../../../../common';
+import * as Service_Modules from '../modules'
 
 export class Player {
     static on_ipc_after_root(player: Comps.CompPlayer, cmd: ADHOCCAST.Cmds.Common.ICommand) {
@@ -71,10 +72,13 @@ export class Player {
 
     static play(player: Comps.CompPlayer) {
         if (player.videoElement) {
-              Common.Services.Cmds.CustomApplyVideoConstraints.req(
+            Common.Services.Cmds.CustomApplyVideoConstraints.req(
                 player.moduleMain.adhocConnection.instanceId, 
                 player.props.userId, 
                 player.props.constraintName);
+            Service_Modules.AdhocConnection.resumeRemoteCast(
+                player.moduleMain.adhocConnection, 
+                player.props.userId);            
 
             player.videoElement.srcObject = this.getStream(player)
             this.enableTouchback(player);

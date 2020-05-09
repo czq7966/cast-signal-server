@@ -11,6 +11,8 @@ export enum ECommandId {
     custom_off_sending_stream = "custom_off_sending_stream",
     //for remote adhoc
     custom_stop_cast = "custom_stop_cast",
+    custom_pause_cast = "custom_pause_cast",
+    custom_resume_cast = "custom_resume_cast",
     custom_get_sender_info = "custom_get_sender_info",
     custom_apply_video_constraints = "custom_apply_video_constraints",
 
@@ -34,6 +36,8 @@ export enum ECommandId {
     ECommandId.custom_off_sending_stream,
 
     ECommandId.custom_stop_cast,
+    ECommandId.custom_pause_cast,
+    ECommandId.custom_resume_cast,
     ECommandId.custom_get_sender_info,
 
     ECommandId.custom_window_close,
