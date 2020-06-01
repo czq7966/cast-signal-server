@@ -63,7 +63,7 @@ export class AdhocConnection {
             ADHOCCAST.Cmds.Common.Helper.StateMachine.isset(values.newStates, ADHOCCAST.Cmds.EUserState.stream_room_sending)) {
             await this.onSending(adhocConnection,user);
             // this.joinUserStreamRoom(adhocConnection, user.id);
-            this.tryIncRecvingClient(adhocConnection, this.getDefaultViewId(user.id), user.id);
+            this.checkAutoConnectAndJoinUserStreamRoom(adhocConnection, this.getDefaultViewId(user.id), user.id);
           } else if (ADHOCCAST.Cmds.Common.Helper.StateMachine.isset(values.chgStates, ADHOCCAST.Cmds.EUserState.stream_room_sending) &&
                      !ADHOCCAST.Cmds.Common.Helper.StateMachine.isset(values.newStates, ADHOCCAST.Cmds.EUserState.stream_room_sending)) {
             this.offSending(adhocConnection, user);
@@ -162,10 +162,12 @@ export class AdhocConnection {
             await this.joinUserStreamRoom(adhocConnection, userId);
         }
     }
-    static async tryIncRecvingClient(adhocConnection: Modules.IAdhocConnection, viewId: string, userId: string) {
+    static async checkAutoConnectAndJoinUserStreamRoom(adhocConnection: Modules.IAdhocConnection, viewId: string, userId: string) {
         if (this.userSupportFeature_pause(adhocConnection, userId)) {
             this.incRecvingClient(adhocConnection, viewId, userId)
-        }
+        } else {
+            this.joinUserStreamRoom(adhocConnection, userId);
+        } 
     }
     static  decRecvingClient(adhocConnection: Modules.IAdhocConnection, viewId: string) {
         var userId = adhocConnection.recvingClients.del(viewId);
