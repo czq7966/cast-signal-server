@@ -12,6 +12,7 @@ export class ServiceUserSet extends Cmds.Common.Base {
             let sckGetUser = await ServiceUsers.getSocketUser(sckUser.users, user);
             if (sckGetUser) {
                 sckGetUser.user =  Object.assign(sckGetUser.user, user);
+                await ServiceUsers.addSocketUser(sckUser.users, sckGetUser);
                 let resp: Dts.ICommandData<Dts.ICommandRespDataProps> = Object.assign({}, data, {
                     type: Dts.ECommandType.resp,
                     from: {type: 'server', id: ''},
