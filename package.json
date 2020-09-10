@@ -1,6 +1,6 @@
 {
 	"name": "adhoc-cast-signaler-server-promethean-redis",
-	"version": "3.0.8",
+	"version": "3.1.0",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
@@ -54,6 +54,8 @@
 		"mdm:server:build": "npm run mdm:server:rename && npm run build",
 		"promethean:server:rename": "node ./webpack/package.rename.js --package-name='adhoc-cast-signaler-server-promethean-redis' --config-file='./config/promethean.json'",
 		"promethean:server:build": "npm run promethean:server:rename && npm run build",
+		"ota:server:rename": "node ./webpack/package.rename.js --package-name='adhoc-cast-signaler-server-ota' --config-file='./config/ota.json'",
+		"ota:server:build": "npm run ota:server:rename && npm run build",		
 		"sdp-probe:clean": "rimraf ./dist/web/sdp-probe",
 		"sdp-probe:compile": "npm run sdp-probe:clean && cross-env NODE_MODULE=sdp-probe webpack --env.umd",
 		"sdp-probe:dev": "npm run sdp-probe:clean && cross-env NODE_MODULE=sdp-probe webpack --env.umd --env.nodevtool --progress --watch",

@@ -15,7 +15,8 @@ export enum ESocketNamespaceType {
     csLogger = "cslogger",
     signalCenter = "signalCenter",
     signalClient = "signalClient",
-    signalRedis = "signalRedis"
+    signalRedis = "signalRedis",
+    ota = "ota"
 }
 
 export interface ISocketNamespaceOptions<T> {

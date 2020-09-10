@@ -23,6 +23,7 @@ module.exports = env => {
     entry['signal-center/index'] = path.resolve(srcDir, "signal-center/index.ts");
     entry['signal-client/index'] = path.resolve(srcDir, "signal-client/index.ts");
     entry['redis-signaler/index'] = path.resolve(srcDir, "redis-signaler/index.ts");
+    entry['ota/index'] = path.resolve(srcDir, "ota/index.ts");
 
     
     optimization['minimizer'] = minimizer;  

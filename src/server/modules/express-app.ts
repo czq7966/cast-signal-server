@@ -1,5 +1,10 @@
 import * as express from 'express'
-import path = require('path')
+
+export interface IExpressApp {
+    nsps: Array<string>
+    websites: {[name: string]: string}
+    express: express.Application;    
+}
 
 export class ExpressApp {
     nsps: Array<string>

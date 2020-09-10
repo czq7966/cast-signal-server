@@ -3,12 +3,13 @@ import * as path from 'path'
 import * as http from 'http'
 import * as https from 'https'
 import { Config, IConfig} from './config';
-import { ExpressApp } from './express-app';
+import { ExpressApp, IExpressApp } from './express-app';
 
 export interface IHttpServerOption {
     port: number,
     listenlog: string,
-    httpServer: http.Server | https.Server,    
+    httpServer: http.Server | https.Server,
+    expressApp: IExpressApp
 }
 
 export interface IHttpServers {
@@ -49,6 +50,7 @@ export class HttpServers {
                 port: option.port,
                 listenlog: 'listen on http port ' + option.port,
                 httpServer: httpServer,
+                expressApp: expressApp
             }
             this.servers.push(server)
         })        
@@ -72,6 +74,7 @@ export class HttpServers {
                     port: option.port,
                     listenlog: 'listen on https port ' + option.port,
                     httpServer: httpsServer,
+                    expressApp: expressApp
                 }
                 this.servers.push(server)
             } else {
