@@ -11,6 +11,15 @@ export class OTA {
         this.checkCurrentVersionRecord(namespace, req, res, item);
     }
 
+    //无效请求
+    static async onInvalidReq(namespace: Modules.IOTANamespace, req: Express.Request, res: Express.Response) {
+        let pkg: Dts.IOTAResponse = {
+            code: 2,
+            message: "无效请求！"
+        }
+        res.send(pkg);        
+    }    
+
     //返回已是最新版本
     static isLatestVersion(namespace: Modules.IOTANamespace, req: Express.Request, res: Express.Response, item:string, message?: string) {
         let pkg: Dts.IOTAResponse = {
@@ -103,8 +112,8 @@ export class OTA {
                         toVersion.blacklist.items.length > 0 && 
                         toVersion.blacklist.items.indexOf(sn) > 0;
         if (!isBlack) {
-            // 不是黑名单
-            this.checkCurrentVersionEnabled(namespace,req, res, item, version, toVersion)
+            // 不是黑名单, 检查升级信息
+            this.checkUpdateVersionPackage(namespace,req, res, item, version, toVersion)
 
         } else {
             // 是黑名单且激活，已是最新版本
@@ -128,7 +137,7 @@ export class OTA {
     static async checkUpdateVersionPackage(namespace: Modules.IOTANamespace, req: Express.Request, res: Express.Response, item:string, version: Dts.IOTAVersion, toVersion:  Dts.IOTAVersion) {
         if (toVersion.package && toVersion.package.url && toVersion.package.md5) {
             //信息完整，返回
-             
+            this.hasUpdatePackage(namespace, req,res, item, version, toVersion);             
         } else {
             //信息不完整，返回
             this.isLatestVersion(namespace, req, res, item, '升级包信息不完整');

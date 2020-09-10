@@ -28,6 +28,9 @@ export class SocketNamespace  extends Modules.SocketNamespace implements IOTANam
             
             appExpress.use("/ota", otaExpress);
 
+            appExpress.use("/*", (req, res) => { Services.OTA.onInvalidReq(this, req, res); });
+            otaExpress.use("/*", (req, res) => { Services.OTA.onInvalidReq(this, req, res); });
+
         })
     }
 

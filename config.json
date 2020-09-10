@@ -41,8 +41,13 @@
 			"useSignalCenter": true,
 			"extra": {
 				"redis": "signalRedis",
-				"items": ["receiver", "sender", "router", "rom"]
-			}			
+				"items": [
+					"receiver",
+					"sender",
+					"router",
+					"rom"
+				]
+			}
 		}
 	},
 	"websites": {
